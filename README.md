@@ -1,15 +1,46 @@
-# 00. The Starting Point
+# 01. DRY Out Markup
 
-This repository acts as a step-by-step in converting cards built in static HTML/CSS & [Tachyons](http://tachyons.io) into reusable and composable React components.
-## Intro
-After cloning this directory, run `npm start` from inside of the `reactify-card` directory. Now when you visit `http://localhost:3000`, you will see three different Cards, the source code for which can be found in `./reactify-card/src/StaticCards.js`.
+To start to DRY (Don't Repeat Yourself) out our markup, we'll look for `className`s in our markup that are being reused multiple times, and replace them with variable assignments. This is good to do, because if we decide to change something later on, we only have to change it in one place.
 
-For the most part, these cards have been marked up in standard HTML, but with some minimal changes to make them play nicely within a React project.
+To start, notice that all of the cards begin with `<div className='relative card ...'>`. We can create a constant `commonCardClasses` for these two classes at the top of our file:
 
-To get started, clone the repo and follow along with the [ordered branches](https://github.com/tayiorbeii/reactify-cards/branches)!
-* Each card has been put into its own stateless functional component, which are `export`ed out of `StaticCards.js` and `import`ed into `App.js`.
-* Image assets are imported and given variable names at the top of the file, and then referenced like so: `<img src={imgCourseCard} />` (In React, curly braces are used when dealing with variables).
-* React uses `className` in its markup rather than `class` (Many of the class names in use are provided via [`tachyons-egghead`](https://github.com/eggheadio/tachyons-egghead/), a compilation of customized [Tachyons](http://tachyons.io) styles)
+```javascript
+const commonCardClasses = 'relative card'
+```
+
+After pulling out the common classes, I like to use ES6 Template Literals to interpolate the other required classes into a single variable. So, looking at our three card examples, I come up with the following:
+
+```javascript
+const courseCardClasses = `${commonCardClasses} card-stacked-shadow card-course`
+const lessonCardClasses = `${commonCardClasses} card-lesson`
+const playlistCardClasses = `${commonCardClasses} card-stacked-shadow sans-serif card-playlist`
+```
+
+Now that we've declared variables for each, we can replace the repeated strings. Remember to use curly braces instead of quotes since we're using variables. After you've replaced these classes, the cards should look exactly the same.
+
+We can give the same treatment to the common "inner" card classes. All three of our example cards have the following "inner" card classes:
+```javascript
+flex flex-column items-center br2 bg-white navy relative z-1 card-course-inner
+```
+
+Our Course and Lesson cards also feature these additional inner classes:
+
+```javascript
+overflow-hidden pa4 pointer
+```
+
+Following the pattern of above, we will create variables for our common inner classes.
+```javascript
+const commonInnerClasses = 'flex flex-column items-center br2 bg-white navy relative z-1 card-course-inner'
+const enhancedInnerClasses = `${commonInnerClasses} overflow-hidden pa4 pointer`
+```
+
+_The Course and Lesson cards have additional classes that enhance the common inner classes, hence the name. Sometimes naming things is hard._
+
+There are many more areas where `classNames` are repeated: The button that shows when hovering over a card, the title and author typography, the card footers... Following the pattern of replacing instances of duplication with a resuable variable goes a long way in cleaning up presentational markup!
+
+
 
 ## Next Step
-In the next step, we will start DRYing out the Card markup by assigning our repeated `classNames` to variables.
+In the next step, we'll extract the "play" button that appears in our three cards.
+

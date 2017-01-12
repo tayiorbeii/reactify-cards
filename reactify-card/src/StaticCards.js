@@ -6,19 +6,41 @@ import imgRx from './assets/rx.svg'
 import imgAngular from './assets/angular.svg'
 import './assets/index.css'
 
+const commonCardClasses = 'relative card'
+const courseCardClasses = `${commonCardClasses} card-stacked-shadow card-course`
+const lessonCardClasses = `${commonCardClasses} card-lesson`
+const playlistCardClasses = `${commonCardClasses} card-stacked-shadow sans-serif card-playlist`
+
+const commonInnerClasses = 'flex flex-column items-center br2 bg-white navy relative z-1 card-course-inner'
+const enhancedInnerClasses = `${commonInnerClasses} overflow-hidden pa4 pointer`
+
+const titleHeadingClasses = 'f3 tc mt4 mb2 avenir fw5'
+const authorNameClasses = 'f6 dark-gray o-50 mb4 tc'
+
+const commonPlayBtnClasses = 'fa fa-play w3 h3 f3 absolute z-1 gray items-center justify-center br-pill pointer card-play-btn'
+const hoverPlayBtnClasses = `${commonPlayBtnClasses} bg-white-70 o-0`
+const playBtnClasses = `${commonPlayBtnClasses} hover-turquoise bg-white`
+
+const footerClasses = 'flex justify-between self-stretch items-center' 
+const pillClasses = 'f6 lh-title ttu fw6 ph3 pv1 br-pill tracked'
+const orangePillClasses = `${pillClasses} orange bg-tag-orange`
+const bluePillClasses = `${pillClasses} blue bg-tag-blue`
+const greenPillClasses = `${pillClasses} dark-green bg-tag-turquoise tracked`
+
+
 export const StaticCourseCard = () => {
   return (
-      <div className='relative card card-stacked-shadow card-course'>
-        <div className='flex flex-column items-center overflow-hidden br2 pa4 bg-white navy pointer relative z-1 card-course-inner'>
-          <div className='fa fa-play w3 h3 f3 absolute z-1 gray bg-white-70 o-0 items-center justify-center br-pill pointer card-play-btn'></div>
+      <div className={courseCardClasses}>
+        <div className={enhancedInnerClasses}>
+          <div className={hoverPlayBtnClasses}></div>
           <div className='mw5 mt3 center ph3'>
             <img alt='' src={imgCourseCard}/>
           </div>
-          <h3 className='f3 tc mt4 mb2 avenir fw5'>Introduction to RxJS Marble Testing Two lines headline</h3>
-          <div className='f6 dark-gray o-50 mb4 tc'>Joe Maddalone</div>
-          <div className='flex justify-between self-stretch items-center'>
+          <h3 className={titleHeadingClasses}>Introduction to RxJS Marble Testing Two lines headline</h3>
+          <div className={authorNameClasses}>Joe Maddalone</div>
+          <div className={footerClasses}>
             <div className='f6 dark-gray o-50'>12 lessons</div>
-            <div className='f6 orange lh-title ttu fw6 ph3 pv1 br-pill bg-tag-orange tracked'>course</div>
+            <div className={orangePillClasses}>course</div>
           </div>
         </div>
       </div>
@@ -27,18 +49,18 @@ export const StaticCourseCard = () => {
 
 export const StaticLessonCard = () => {
   return (
-    <div className='relative card card-lesson'>
-      <div className='flex flex-column items-center overflow-hidden br2 pa4 bg-white navy pointer relative z-1 card-course-inner'>
-        <div className='fa fa-play w3 h3 f3 absolute z-1 gray bg-white-70 o-0 items-center justify-center br-pill pointer card-play-btn'></div>
-        <h3 className='f3 tc mt4 mb2 avenir fw5'>Introduction to RxJS Marble Testing Two lines headline</h3>
-        <div className='f6 dark-gray o-50 mb4 tc'>Joe Maddalone</div>
-        <div className='flex justify-between self-stretch items-center'>
+    <div className={lessonCardClasses}>
+      <div className={enhancedInnerClasses}>
+        <div className={hoverPlayBtnClasses}></div>
+        <h3 className={titleHeadingClasses}>Introduction to RxJS Marble Testing Two lines headline</h3>
+        <div className={authorNameClasses}>Joe Maddalone</div>
+        <div className={footerClasses}>
           <div className='flex items-center gray'>
             <img src={imgJs} className='w2' alt=''/>
             <i className='fa fa-clock-o o-60 f5 ml3'></i>
             <div className='w3 ml2 o-60 f6'>22:22</div>
           </div>
-          <div className='f6 blue lh-title ttu fw6 ph3 pv1 br-pill bg-tag-blue tracked'>lesson</div>
+          <div className={bluePillClasses}>lesson</div>
         </div>
       </div>
     </div>
@@ -47,12 +69,12 @@ export const StaticLessonCard = () => {
 
 export const StaticPlaylistCard = () => {
   return (
-          <div className='relative card card-stacked-shadow sans-serif card-playlist'>
-        <div className='flex flex-column items-center br2 bg-white navy relative z-1 card-course-inner'>
+          <div className={playlistCardClasses}>
+        <div className={commonInnerClasses}>
           <div className='relative w-100' style={{
             height: '290px'
           }}>
-            <div className='fa fa-play w3 h3 f3 absolute z-1 gray hover-turquoise bg-white items-center justify-center br-pill pointer card-play-btn'></div>
+            <div className={playBtnClasses}></div>
             <div className='pr3 pt3 bg-tag-gray self-stretch h-100 br2 overflow-y-scroll'>
               <ul className='list pa0 ma0 overflow-hidden card-progress-list'>
                 <li className='flex items-start relative f6 lh-solid pointer pv3 pl4 pr3 gray hover-bg-white card-progress-list-item viewed'>
@@ -116,9 +138,9 @@ export const StaticPlaylistCard = () => {
           </div>
           <div className='ph4 pt5 pb4'>
             <div className='tc f6 lh-title light-gray'>14:34 to go (4 more lessons)</div>
-            <h3 className='f3 tc mt3 mb2 fw5 lh-copy'>Introduction to RxJS Marble Testing Two lines headline</h3>
-            <div className='f6 dark-gray o-50 mb4 tc'>Joe Maddalone</div>
-            <div className='flex justify-between self-stretch items-center'>
+            <h3 className={titleHeadingClasses}>Introduction to RxJS Marble Testing Two lines headline</h3>
+            <div className={authorNameClasses}>Joe Maddalone</div>
+            <div className={footerClasses}>
               <div className='flex flex-column items-center'>
                 <div className='f6 dark-gray o-50'>
                   <span className='dark-green'>7</span>
@@ -131,7 +153,7 @@ export const StaticPlaylistCard = () => {
                   }}></div>
                 </div>
               </div>
-              <div className='f6 dark-green lh-title ttu fw6 ph3 pv1 br-pill bg-tag-turquoise tracked'>playlist</div>
+              <div className={greenPillClasses}>playlist</div>
             </div>
           </div>
         </div>
