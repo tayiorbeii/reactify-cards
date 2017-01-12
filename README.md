@@ -1,75 +1,36 @@
-# 02. Creating the Play Button
+# 03. Planning Our Components
 
-We've cleaned up our code quite a bit by extracting repeatedly used classes into varaibles, but now the markup for our play button variations look like this:
+In order to form our plan of attack, let's do the component hierarchy excercise featured in Facebook's ["Thinking in React"](https://facebook.github.io/react/docs/thinking-in-react.html) article. This exercise is useful not only to help you visualize how your components fit together, but also to help you come up with names for the subcomponents.
 
-```javascript
-<div className={playBtnClasses}></div>
-<div className={hoverPlayBtnClasses}></div>
-```
+This can be done with any software that allows you to annotate an image (I'm using Preview, that ships by default in Mac OS).
 
-We know from our repeated `className`s that we have a base button with a variation applied to it. With that in mind, we will create a `<PlayButton />` component with a `hover` variant that will be activated via a prop passed into the component.
+The first step is to break each card into common parts, and then drill down from there. In this case, I'm using neon pink for the card's header, neon green for the body, and neon blue for the footer.
 
-In a new file called `PlayButton.js`, we will migrate over the appropriate lines of code from `StateCards.js`. Since our component will make use of props, we need to add `PropTypes` as a destructured import from React:
+## Card Header (Neon Pink)
+Looking at the headers for our three example cards, notice that all three have rounded corners. In our Lesson Card, that's all we have for the header. Our Course Card has an image, so we know we will need a component for that. I've highlighted it in orange.
 
-```javascript
-import React, { PropTypes } from 'react'
+However, our Playlist Card has a lot going on, and will need to host an entire set of subcomponents. Let's take a closer look.
 
-const commonPlayBtnClasses = 'fa fa-play w3 h3 f3 absolute z-1 gray items-center justify-center br-pill pointer card-play-btn'
-const hoverPlayBtnClasses = `${commonPlayBtnClasses} bg-white-70 o-0`
-const playBtnClasses = `${commonPlayBtnClasses} hover-turquoise bg-white`
-```
+#### Playlist Component
+I've drawn a purple square around the area inside the header that the playlist will take up. Examining the inside of the playlist, I can see several line items, each representing a video in the list. I know that we will need subcomponents for each of these, so I'll separate them with a dashed purple line. Now that we can see them sliced horizontally, we have different vertical lines to draw as well, separating the playlist status icon, a language type icon, the video's name, and the video length.
 
-With our button prerequisites in place, we can write the stateless functional component for the `PlayButton`. The `hover` prop is a boolean that we will set to be false by default, meaning that we will have to specify if we want to use that variation.
+Below the Playlist Entries, we have the `PlayButton` component outlined in dark green, even though we've already created it.
 
-Recall that our button markup was in a single `<div>`, so all we need to return is a self-closing `<div />` with the appropriate `className`s applied.
+Finally, underneath the `PlayButton` we have a summary of the remaining time in the playlist.
 
-Since we have only two variations of the `PlayButton` we will use a ternary statement to decide which of our `className` variables to use. Our ternary statment will say "if this is the `hover` variation, use the `hoverPlayBtnClasses`, otherwise use the regular `playBtnClasses`".
+### `CardHeader` Component Tree
+It can be helpful to look at the hierarchy as a tree. We'll revisit this  
 
-We can write our ternary statement directly into the `className` declaration inside of the `<div />` we are returning.
+* `CardHeader`
+  - `HeaderImage`
+  - `Playlist`
+    - `PlaylistItem`
+      - `PlayedStatus`
+      - `CategoryIcon`
+      - `VideoTitle`
+      - `VideoLength`
+    - `PlayButton`
+    - `PlaylistSummary`
 
-```javascript
-const PlayButton = ({ hover=false }) => {
-    return <div className={hover ? hoverPlayBtnClasses : playBtnClasses} />
-}
 
-PlayButton.propTypes = {
-  hover: PropTypes.bool  
-}
-```
-
-Now that our `PlayButton` component is complete, we will make it the default export for our file:
-
-```javascript
-export default PlayButton
-```
-
-With this file complete, we can now go back to our `StaticCards.js` file and import our newly created `PlayButton`:
-
-```javascript
-// inside StaticCards.js
-
-import PlayButton from './PlayButton'
-```
-
-We can also remove the class name variables related to the `PlayButton`.  
-In order to use our new component, we just replace our previous markup like so:
-
-```javascript
-// Old:
-<div className={playBtnClasses}></div>
-
-// New:
-<PlayButton />
-```
-
-Since the `hover` prop on our `PlayButton` is a boolean, if we want to use that button variation, we can simply add the word to use that variation:
-
-```javascript
-<PlayButton hover />
-```
-
-One component extracted, several more to go!
-
-## Next Step
-Applying the concepts of ["Thinking in React"](https://facebook.github.io/react/docs/thinking-in-react.html) to determine our component hierarchy.
 
