@@ -1,5 +1,6 @@
 import React from 'react';
 import 'tachyons-egghead'
+import PlayButton from './PlayButton'
 import imgCourseCard from './assets/img-course-card.png'
 import imgJs from './assets/js.svg'
 import imgRx from './assets/rx.svg'
@@ -17,10 +18,6 @@ const enhancedInnerClasses = `${commonInnerClasses} overflow-hidden pa4 pointer`
 const titleHeadingClasses = 'f3 tc mt4 mb2 avenir fw5'
 const authorNameClasses = 'f6 dark-gray o-50 mb4 tc'
 
-const commonPlayBtnClasses = 'fa fa-play w3 h3 f3 absolute z-1 gray items-center justify-center br-pill pointer card-play-btn'
-const hoverPlayBtnClasses = `${commonPlayBtnClasses} bg-white-70 o-0`
-const playBtnClasses = `${commonPlayBtnClasses} hover-turquoise bg-white`
-
 const footerClasses = 'flex justify-between self-stretch items-center' 
 const pillClasses = 'f6 lh-title ttu fw6 ph3 pv1 br-pill tracked'
 const orangePillClasses = `${pillClasses} orange bg-tag-orange`
@@ -32,7 +29,7 @@ export const StaticCourseCard = () => {
   return (
       <div className={courseCardClasses}>
         <div className={enhancedInnerClasses}>
-          <div className={hoverPlayBtnClasses}></div>
+          <PlayButton hover />
           <div className='mw5 mt3 center ph3'>
             <img alt='' src={imgCourseCard}/>
           </div>
@@ -51,7 +48,7 @@ export const StaticLessonCard = () => {
   return (
     <div className={lessonCardClasses}>
       <div className={enhancedInnerClasses}>
-        <div className={hoverPlayBtnClasses}></div>
+        <PlayButton hover />
         <h3 className={titleHeadingClasses}>Introduction to RxJS Marble Testing Two lines headline</h3>
         <div className={authorNameClasses}>Joe Maddalone</div>
         <div className={footerClasses}>
@@ -74,7 +71,7 @@ export const StaticPlaylistCard = () => {
           <div className='relative w-100' style={{
             height: '290px'
           }}>
-            <div className={playBtnClasses}></div>
+            <PlayButton />
             <div className='pr3 pt3 bg-tag-gray self-stretch h-100 br2 overflow-y-scroll'>
               <ul className='list pa0 ma0 overflow-hidden card-progress-list'>
                 <li className='flex items-start relative f6 lh-solid pointer pv3 pl4 pr3 gray hover-bg-white card-progress-list-item viewed'>
