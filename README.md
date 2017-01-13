@@ -19,7 +19,7 @@ Below the Playlist Entries, we have the `PlayButton` component outlined in dark 
 Finally, underneath the `PlayButton` we have a summary of the remaining time in the playlist.
 
 ### `CardHeader` Component Tree
-It can be helpful to look at the hierarchy as a tree. We'll revisit this  
+It can be helpful to look at the hierarchy as a tree. We'll revisit this as we build out the subcomponents.
 
 * `CardHeader`
   - `HeaderImage`
@@ -31,6 +31,14 @@ It can be helpful to look at the hierarchy as a tree. We'll revisit this
       - `VideoLength`
     - `PlayButton`
     - `PlaylistSummary`
+
+## Card Body (Neon Green)
+The body of the card contains two subcomponents: a title, and the author.
+
+### `CardBody` Component Tree
+* `CardBody`
+  - `CardTitle`
+  - `CardAuthor`
 
 
 
