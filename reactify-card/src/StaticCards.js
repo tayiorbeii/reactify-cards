@@ -1,5 +1,4 @@
 import React from 'react';
-import 'tachyons-egghead'
 import PlayButton from './PlayButton'
 import imgCourseCard from './assets/img-course-card.png'
 import imgJs from './assets/js.svg'
@@ -24,6 +23,14 @@ const orangePillClasses = `${pillClasses} orange bg-tag-orange`
 const bluePillClasses = `${pillClasses} blue bg-tag-blue`
 const greenPillClasses = `${pillClasses} dark-green bg-tag-turquoise tracked`
 
+export const Card = () => {
+  return (
+    <div className={commonCardClasses}>
+      <div className={commonInnerClasses}>
+      </div>
+    </div>
+  )
+}
 
 export const StaticCourseCard = () => {
   return (
