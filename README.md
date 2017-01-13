@@ -66,4 +66,4 @@ The metadata for the material has been sliced into subcomponents by yellow lines
 ![](./lessoncard-hierarchy.png)
 
 ## Next Step
-Now that we have a plan of attack for our component hierarchy, we can move on to to implementation, starting with the `CardHeader` and `Playlist` components.
+Now that we have a plan of attack for our component hierarchy, we can start on implementing our reusable `Card` component.
