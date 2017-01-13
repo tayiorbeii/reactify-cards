@@ -87,4 +87,44 @@ After saving the file, the preview of our new `Card` component should now displa
 ## Passing Props Through
 Now that we know our `CardBody` component is working, let's refactor our code to allow us to pass the `title` and `author` through our `Card` component. We'll do this by following pretty much the same process that we just did: Add `propTypes` to our `Card` component, have it destructure `title` and `author` from its params.
 
+Once that's done, we'll remove the hardcoded `'Test Title'` and `'Test Author'` strings and replace them with our new prop variables.
+
+```javascript
+export const Card = ({title, author}) => {
+  return (
+    <div className={commonCardClasses}>
+      <div className={commonInnerClasses}>
+        <CardBody title={title} author={author} />
+      </div>
+    </div>
+  )
+}
+Card.propTypes = {
+  title: PropTypes.string.isRequired,
+  author: PropTypes.string.isRequired
+}
+```
+
+Saving the file at this point, our `Card` preview again updates to be invisible. This is because we need to pass `title` and `author` props in when we instantiate our `Card`.
+
+## Updating our Example Card
+In our `index.js` file where we are rendering our exmaple cards, I'm going to create an object variable above our call to `ReactDOM.render` that will hold our sample data. For illustrative purposes, I'm going to replicate our example cards exactly, so I'll just copy and paste the title and author strings we've already been using.
+
+```javascript
+const testData = {
+  title: 'Introduction to RxJS Marble Testing Two lines headline',
+  author: 'Joe Maddalone'
+}
+```
+
+With our test data in place, we can now update our `Card` component to make use of the `title` and `author` props:
+
+```javascript
+<Card title={testData.title} author={testData.author} />
+```
+
+After we save the file, our card is back to showing us the wide preview of our `Card`, but this time without the values having been hardcoded.
+
+## Next Steps
+Next we will update our `Card` component to be aware of our different Course, Lesson, and Playlist variations.
 

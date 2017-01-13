@@ -22,13 +22,17 @@ CardBody.propTypes = {
   author: PropTypes.string.isRequired
 }
 
-export const Card = () => {
+export const Card = ({title, author}) => {
   return (
     <div className={commonCardClasses}>
       <div className={commonInnerClasses}>
-        <CardBody title='Test Title' author='Test Author' />
+        <CardBody title={title} author={author} />
       </div>
     </div>
   )
+}
+Card.propTypes = {
+  title: PropTypes.string.isRequired,
+  author: PropTypes.string.isRequired
 }
 

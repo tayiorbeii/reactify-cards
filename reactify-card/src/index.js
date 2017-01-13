@@ -5,10 +5,15 @@ import 'tachyons-egghead'
 import { StaticCourseCard, StaticLessonCard, StaticPlaylistCard } from './StaticCards'
 import { Card } from './Card'
 
+const testData = {
+  title: 'Introduction to RxJS Marble Testing Two lines headline',
+  author: 'Joe Maddalone'
+}
+
 ReactDOM.render(
   <div className='flex flex-column items-center bg-dark-navy pv5'>
     <div>
-      <Card />
+      <Card title={testData.title} author={testData.author} />
     </div>
     <div className='mt5'>
       <StaticCourseCard />
