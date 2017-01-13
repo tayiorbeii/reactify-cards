@@ -9,6 +9,8 @@ The first step is to break each card into common parts, and then drill down from
 ## Card Header (Neon Pink)
 Looking at the headers for our three example cards, notice that all three have rounded corners. In our Lesson Card, that's all we have for the header. Our Course Card has an image, so we know we will need a component for that. I've highlighted it in orange.
 
+![](./coursecard-hierarchy.png)
+
 However, our Playlist Card has a lot going on, and will need to host an entire set of subcomponents. Let's take a closer look.
 
 #### Playlist Component
@@ -18,7 +20,7 @@ Below the Playlist Entries, we have the `PlayButton` component outlined in dark 
 
 Finally, underneath the `PlayButton` we have a summary of the remaining time in the playlist.
 
-### `CardHeader` Component Tree
+### CardHeader Component Tree
 It can be helpful to look at the hierarchy as a tree. We'll revisit this as we build out the subcomponents.
 
 * `CardHeader`
@@ -32,13 +34,36 @@ It can be helpful to look at the hierarchy as a tree. We'll revisit this as we b
     - `PlayButton`
     - `PlaylistSummary`
 
-## Card Body (Neon Green)
-The body of the card contains two subcomponents: a title, and the author.
+![](./playlistcard-hierarchy.png)
 
-### `CardBody` Component Tree
+## Card Body (Neon Green)
+The body of the card is simple, and contains two subcomponents: a title, and the author.
+
+### CardBody Component Tree
 * `CardBody`
   - `CardTitle`
   - `CardAuthor`
 
+## Card Footer (Neon Blue)
+The footer is split between an indicator of the type of material the card represents, and statistics or metadata about the material-- such as number of videos and length. There may be a stacked shadow effect below it, so we should remember that when we move to the implementation phase.
 
+#### MaterialType Component
+Outlined in maroon, the `MaterialType` features a pill with different styling applied depending on if the material is a course, lesson, or a playlist.
 
+#### MaterialMeta Component
+The metadata for the material has been sliced into subcomponents by yellow lines, and again, presentation depends upon the type of material.
+
+### CardFooter Component Tree
+* `CardFooter`
+  - `MaterialType`
+  - `MaterialMeta`
+    - `LessonCount`
+    - `CompletedLessonCount`
+    - `ProgressBar`
+    - `LessonLength`
+    - `LessonTypeIcon`
+
+![](./lessoncard-hierarchy.png)
+
+## Next Step
+Now that we have a plan of attack for our component hierarchy, we can move on to to implementation, starting with the `CardHeader` and `Playlist` components.
