@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import 'font-awesome/css/font-awesome.css'
 import 'tachyons-egghead'
-import { StaticCourseCard, StaticLessonCard, StaticPlaylistCard, Card } from './StaticCards'
+import { StaticCourseCard, StaticLessonCard, StaticPlaylistCard } from './StaticCards'
+import { Card } from './Card'
 
 ReactDOM.render(
   <div className='flex flex-column items-center bg-dark-navy pv5'>

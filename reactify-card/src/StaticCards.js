@@ -23,15 +23,6 @@ const orangePillClasses = `${pillClasses} orange bg-tag-orange`
 const bluePillClasses = `${pillClasses} blue bg-tag-blue`
 const greenPillClasses = `${pillClasses} dark-green bg-tag-turquoise tracked`
 
-export const Card = () => {
-  return (
-    <div className={commonCardClasses}>
-      <div className={commonInnerClasses}>
-      </div>
-    </div>
-  )
-}
-
 export const StaticCourseCard = () => {
   return (
       <div className={courseCardClasses}>
