@@ -4,14 +4,14 @@ In order to form our plan of attack, let's do the component hierarchy excercise 
 
 This can be done with any software that allows you to annotate an image (I'm using Preview, that ships by default in Mac OS).
 
-The first step is to [break each card into common parts](./allcards.png), and then drill down from there. In this case, I'm using neon pink for the card's header, neon green for the body, and neon blue for the footer.
+The first step is to [break each card into common parts](./allcards.png), and then drill down from there. Each Card has the same basic attributes (e.g. white background, rounded corners), and will have its sections annotated in different colors. In this case, I'm using neon pink for the card's header, neon green for the body, and neon blue for the footer.
 
 ## Card Header (Neon Pink)
-Looking at the headers for our three example cards, notice that all three have rounded corners. In our Lesson Card, that's all we have for the header. Our Course Card has an image, so we know we will need a component for that. I've highlighted it in orange.
+In our Lesson Card, the header is empty, so no subcomponent will be needed. Our Course Card has an image, so we know we will need a component for that. I've highlighted it in orange.
 
 ![](./coursecard-hierarchy.png)
 
-However, our Playlist Card has a lot going on, and will need to host an entire set of subcomponents. Let's take a closer look.
+Our Playlist Card has a lot going on, and will need to host an entire set of subcomponents. Let's take a closer look.
 
 #### Playlist Component
 I've drawn a purple square around the area inside the header that the playlist will take up. Examining the inside of the playlist, I can see several line items, each representing a video in the list. I know that we will need subcomponents for each of these, so I'll separate them with a dashed purple line. Now that we can see them sliced horizontally, we have different vertical lines to draw as well, separating the playlist status icon, a language type icon, the video's name, and the video length.
@@ -45,7 +45,7 @@ The body of the card is simple, and contains two subcomponents: a title, and the
   - `CardAuthor`
 
 ## Card Footer (Neon Blue)
-The footer is split between an indicator of the type of material the card represents, and statistics or metadata about the material-- such as number of videos and length. There may be a stacked shadow effect below it, so we should remember that when we move to the implementation phase.
+The footer is split between an indicator of the type of material the card represents, and statistics or metadata about the material-- such as number of videos and length.
 
 #### MaterialType Component
 Outlined in maroon, the `MaterialType` features a pill with different styling applied depending on if the material is a course, lesson, or a playlist.
