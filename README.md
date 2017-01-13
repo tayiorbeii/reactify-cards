@@ -4,7 +4,7 @@ In order to form our plan of attack, let's do the component hierarchy excercise 
 
 This can be done with any software that allows you to annotate an image (I'm using Preview, that ships by default in Mac OS).
 
-The first step is to break each card into common parts, and then drill down from there. In this case, I'm using neon pink for the card's header, neon green for the body, and neon blue for the footer.
+The first step is to [break each card into common parts](./allcards.png), and then drill down from there. In this case, I'm using neon pink for the card's header, neon green for the body, and neon blue for the footer.
 
 ## Card Header (Neon Pink)
 Looking at the headers for our three example cards, notice that all three have rounded corners. In our Lesson Card, that's all we have for the header. Our Course Card has an image, so we know we will need a component for that. I've highlighted it in orange.
