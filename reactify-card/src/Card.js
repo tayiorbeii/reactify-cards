@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import './assets/index.css'
 
 const commonCardClasses = 'relative card'
@@ -9,12 +9,24 @@ const commonInnerClasses = 'flex flex-column items-center br2 bg-white navy rela
 const titleHeadingClasses = 'f3 tc mt4 mb2 avenir fw5'
 const authorNameClasses = 'f6 dark-gray o-50 mb4 tc'
 
+const CardBody = ({title, author}) => {
+  return (
+    <div>
+      <h3 className={titleHeadingClasses}>{title}</h3>
+      <div className={authorNameClasses}>{author}</div>
+    </div>
+  )
+}
+CardBody.propTypes = {
+  title: PropTypes.string.isRequired,
+  author: PropTypes.string.isRequired
+}
+
 export const Card = () => {
   return (
     <div className={commonCardClasses}>
       <div className={commonInnerClasses}>
-        <h3 className={titleHeadingClasses}>Introduction to RxJS Marble Testing Two lines headline</h3>
-        <div className={authorNameClasses}>Joe Maddalone</div>
+        <CardBody title='Test Title' author='Test Author' />
       </div>
     </div>
   )
