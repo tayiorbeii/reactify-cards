@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import 'font-awesome/css/font-awesome.css'
 import 'tachyons-egghead'
 import { StaticCourseCard, StaticLessonCard, StaticPlaylistCard } from './StaticCards'
-import { Card } from './Card'
+import { CourseCard, LessonCard, PlaylistCard } from './Card'
 
 const testData = {
   title: 'Introduction to RxJS Marble Testing Two lines headline',
@@ -13,7 +13,13 @@ const testData = {
 ReactDOM.render(
   <div className='flex flex-column items-center bg-dark-navy pv5'>
     <div>
-      <Card title={testData.title} author={testData.author} type='course' />
+      <CourseCard title={testData.title} author={testData.author} />
+    </div>
+    <div className='mt5'>
+      <LessonCard title={testData.title} author={testData.author} />
+    </div>
+    <div className='mt5'>
+      <PlaylistCard title={testData.title} author={testData.author} />
     </div>
     <div className='mt5'>
       <StaticCourseCard />

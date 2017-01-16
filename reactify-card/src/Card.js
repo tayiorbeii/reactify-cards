@@ -3,22 +3,20 @@ import { keys } from 'lodash'
 import './assets/index.css'
 
 const commonCardClasses = 'relative card'
-const courseCardClasses = `${commonCardClasses} card-stacked-shadow card-course`
-const lessonCardClasses = `${commonCardClasses} card-lesson`
 const commonInnerClasses = 'flex flex-column items-center br2 bg-white navy relative z-1 card-course-inner'
 const enhancedInnerClasses = `${commonInnerClasses} overflow-hidden pa4 pointer`
 
-const types = {
+const cardTypes = {
   'course': {
-    'cardClasses': 'card-stacked-shadow card-course',
+    'cardClasses': `${commonCardClasses} card-stacked-shadow card-course`,
     'innerClasses': `${enhancedInnerClasses}`
   },
   'lesson': {
-    'cardClasses': 'card-lesson',
+    'cardClasses': `${commonCardClasses} card-lesson`,
     'innerClasses': `${enhancedInnerClasses}`
   },
   'playlist': {
-    'cardClasses': 'card-stacked-shadow sans-serif card-playlist',
+    'cardClasses': `${commonCardClasses} card-stacked-shadow sans-serif card-playlist`,
     'innerClasses': `${commonInnerClasses}`
   }
 }
@@ -41,8 +39,8 @@ CardBody.propTypes = {
 
 export const Card = ({title, author, type}) => {
   return (
-    <div className={types[type]['cardClasses']}> 
-      <div className={types[type]['innerClasses']}>
+    <div className={cardTypes[type]['cardClasses']}> 
+      <div className={cardTypes[type]['innerClasses']}>
         <CardBody title={title} author={author} />
       </div>
     </div>
@@ -51,6 +49,23 @@ export const Card = ({title, author, type}) => {
 Card.propTypes = {
   title: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
-  type: PropTypes.oneOf(keys(types))
+  type: PropTypes.oneOf(keys(cardTypes))
 }
 
+export const CourseCard = ({title, author, type}) => {
+  return (
+    <Card title={title} author={author} type='course' />
+  )
+}
+
+export const LessonCard = ({title, author, type}) => {
+  return (
+    <Card title={title} author={author} type='lesson' />
+  )
+}
+
+export const PlaylistCard = ({title, author, type}) => {
+  return (
+    <Card title={title} author={author} type='playlist' />
+  )
+}
