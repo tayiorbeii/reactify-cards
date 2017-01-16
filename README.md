@@ -1,4 +1,4 @@
-# 04. Creating the CardBody subcomponent
+# 05. Creating the CardBody subcomponent
 
 Inside of each of our example cards inside of `StaticCards.js`, we have the same title `h3` and author name `div` in each of our cards. Let's copy and paste these two lines out of `StaticCourseCard` and into our `Card` component inside of the inner `div` of `Card.js`. We will also need to bring over our `titleHeadingClasses` and `authorNameClasses` variables.
 
