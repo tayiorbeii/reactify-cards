@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "font-awesome": "^4.7.0",
+    "lodash": "^4.17.4",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "tachyons-egghead": "^1.1.8"
