@@ -13,7 +13,7 @@ const testData = {
 ReactDOM.render(
   <div className='flex flex-column items-center bg-dark-navy pv5'>
     <div>
-      <Card title={testData.title} author={testData.author} />
+      <Card title={testData.title} author={testData.author} type='course' />
     </div>
     <div className='mt5'>
       <StaticCourseCard />

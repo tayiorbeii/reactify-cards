@@ -1,130 +1,61 @@
-# 04. Creating the CardBody subcomponent
+# 05. Card Type Awareness
+We've made progress on a generic `Card` component with a `CardBody` subcomponent, but now we will turn our attention toward creating our `CourseCard`, `LessonCard`, and `PlaylistCard` components.
 
-Inside of each of our example cards inside of `StaticCards.js`, we have the same title `h3` and author name `div` in each of our cards. Let's copy and paste these two lines out of `StaticCourseCard` and into our `Card` component inside of the inner `div` of `Card.js`. We will also need to bring over our `titleHeadingClasses` and `authorNameClasses` variables.
+## Preparation
+In the first couple stages of this project, we went through our markup and extracted common and unique `className`s for each of our cards. Each of our Card types has its own outer, inner, and footer styles.
 
+In order to keep ourselves organized, we'll set up a master `types` object to hold the settings for each of our `Card` variations.
 
-```javascript
-// inside our Card component
-...
-      <div className={commonInnerClasses}>
-        <h3 className={titleHeadingClasses}>Introduction to RxJS Marble Testing Two lines headline</h3>
-        <div className={authorNameClasses}>Joe Maddalone</div>
-      </div>
-...
+One of the tools we'll use to help us is `keys` from the `lodash` library. We need to add it to our project...
+
+```
+npm install --save lodash
 ```
 
-After saving the file, our preview app will reload, and we'll see that we have our title and author lines being displayed in a really wide Card (don't worry, we'll tackle the styling later).
-
-## Extract Title & Author into CardBody Component
-Our first pass at the `CardBody` component will contain the same hardcoded title and author as our examples. We'll start by declaring another stateless functional component called `CardBody` that doesn't take any parameters (_yet!_) and returns a `div` containing our title `h3` and author `div` lines.
-
-A couple things of note: we're not using the `export` keyword for our `CardBody` because we aren't going to use it in any other files. Also, we need to surround our title and author lines inside of a `div` because "adjacent JSX elements must be wrapped in an enclosing tag" (I can't say it better than the error message!)
+...and then import it at the top of `Cards.js`:
 
 ```javascript
-const CardBody = () => {
-  return (
-    <div>
-      <h3 className={titleHeadingClasses}>Introduction to RxJS Marble Testing Two lines headline</h3>
-      <div className={authorNameClasses}>Joe Maddalone</div>
-    </div>
-  )
+import { keys } from 'lodash'
+```
+
+## Building the `types` Object
+Putting together our `types` object should be pretty straight forward-- we will have a key for each type (`course`, `lesson`, `playlist`). For now, each entry will track which `cardClasses` and `innerClasses` each type of `Card` will use. We will add to this master object as our work continues.
+
+We'll build our `types` object in our `Card.js` file, and fill it out using the additional class names from each card in `StaticCards.js`.
+
+Since each of our Card types use their own classes in addition to the `commonCardClasses`, we'll just move each of these to their respective `innerClasses`. As far as `innerClasses` go, we'll set the value to be a string template for the appropriate variable. 
+
+```javascript
+const types = {
+  'course': {
+    'cardClasses': 'card-stacked-shadow card-course',
+    'innerClasses': `${enhancedInnerClasses}`
+  },
+  'lesson': {
+    'cardClasses': 'card-lesson',
+    'innerClasses': `${enhancedInnerClasses}`
+  },
+  'playlist': {
+    'cardClasses': 'card-stacked-shadow sans-serif card-playlist',
+    'innerClasses': `${commonInnerClasses}`
+  }
 }
 ```
 
-Now that we've created our `CardBody` component, we can replace these two lines in our `Card` component:
+With our `types` object set up, we can move on to updating our `Card` component.
+
+## Adding `type` Prop to `Card`
+In our `Card.propTypes` declaration, we'll add a `type` key below our `title` and `author` propTypes. Our new `type` prop will be one of the keys present in our `types` object. To translate this into the form that React understands, we'll write it as:
 
 ```javascript
-...
-    <div className={commonCardClasses}>
-      <div className={commonInnerClasses}>
-        <CardBody />
-      </div>
-    </div>
-...
+type: PropTypes.oneOf(keys(types))
 ```
 
-As expected, our new `Card` preview looks the same, which means it worked! Now let's make the title and author display what is passed to them via props.
-
-## Prepare CardBody for Props
-To alter our `CardBody` component to accept props for title and author, we'll first need to add `PropTypes` as a destructured import from React at the top of our file:
+## Refactoring `Card`
+We'll start by adding `type` as one of the destructured parameters where we create the `Card` component. With this in place, we can refactor our `className`s to perform a lookup in our `types` object using the `type` we've passed in to `Card` to choose the correct classes.
 
 ```javascript
-import React, { PropTypes } from 'react'
+
 ```
 
-Now below our `CardBody` component, we add a declaration of the prop names & types that the component should expect. Title & author will both be strings, and we'll set both of them to be required.
-
-```javascript
-CardBody.propTypes = {
-  title: PropTypes.string.isRequired,
-  author: PropTypes.string.isRequired
-}
-```
-
-The next step is to update the `CardBody` component to actually accept these props. We'll start by destructuring `title` and `author` from the parameters passed into the functional component. Then we replace our hardcoded strings with our variables surrounded by curly braces.
-
-```javascript
-const CardBody = ({title, author}) => {
-  return (
-    <div>
-      <h3 className={titleHeadingClasses}>{title}</h3>
-      <div className={authorNameClasses}>{author}</div>
-    </div>
-  )
-}
-```
-
-With that change in place, we now need to update our `<CardBody />` inside of the `Card` component to pass `title` and `author` props:
-
-```javascript
-...
-  <CardBody title='Test Title' author='Test Author' />
-...
-```
-
-After saving the file, the preview of our new `Card` component should now display "Test Title" and "Test Author".
-
-## Passing Props Through
-Now that we know our `CardBody` component is working, let's refactor our code to allow us to pass the `title` and `author` through our `Card` component. We'll do this by following pretty much the same process that we just did: Add `propTypes` to our `Card` component, have it destructure `title` and `author` from its params.
-
-Once that's done, we'll remove the hardcoded `'Test Title'` and `'Test Author'` strings and replace them with our new prop variables.
-
-```javascript
-export const Card = ({title, author}) => {
-  return (
-    <div className={commonCardClasses}>
-      <div className={commonInnerClasses}>
-        <CardBody title={title} author={author} />
-      </div>
-    </div>
-  )
-}
-Card.propTypes = {
-  title: PropTypes.string.isRequired,
-  author: PropTypes.string.isRequired
-}
-```
-
-Saving the file at this point, our `Card` preview again updates to be invisible. This is because we need to pass `title` and `author` props in when we instantiate our `Card`.
-
-## Updating our Example Card
-In our `index.js` file where we are rendering our exmaple cards, I'm going to create an object variable above our call to `ReactDOM.render` that will hold our sample data. For illustrative purposes, I'm going to replicate our example cards exactly, so I'll just copy and paste the title and author strings we've already been using.
-
-```javascript
-const testData = {
-  title: 'Introduction to RxJS Marble Testing Two lines headline',
-  author: 'Joe Maddalone'
-}
-```
-
-With our test data in place, we can now update our `Card` component to make use of the `title` and `author` props:
-
-```javascript
-<Card title={testData.title} author={testData.author} />
-```
-
-After we save the file, our card is back to showing us the wide preview of our `Card`, but this time without the values having been hardcoded.
-
-## Next Steps
-Next we will update our `Card` component to be aware of our different Course, Lesson, and Playlist variations.
 
