@@ -13,6 +13,7 @@ const testData = {
   author: 'Joe Maddalone',
   meta: {
     courseImg: imgCourseCard,
+    langImg: imgJs,
     lessonCount: 12,
     currentLesson: 7,
     lessonsLeft: 5,

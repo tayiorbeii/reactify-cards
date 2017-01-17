@@ -15,6 +15,7 @@ const testData = {
   author: 'Joe Maddalone',
   meta: {
     courseImg: imgCourseCard,
+    langImg: imgJs,
     lessonCount: 12,
     currentLesson: 7,
     lessonsLeft: 5,
@@ -49,6 +50,42 @@ export const CourseCard = ({title, author, type, meta}) => {
   )
 }
 ```
+
+## Creating our MaterialMeta Components
+Since each Card type has a different set of metadata that it displays, we are going to create a new stateless functional component for each. When they've been created, we'll add each of them to the appropriate type in our `cardTypes` object so we can call them up later.
+
+#### `CourseMeta` Component
+Our `CourseCard` is simply a count of the number of lessons. Going off of the markup in `StaticCard.js`'s example, we can see we only need a single `<div>` with some class names. Inside, we'll use curly braces to display `meta.lessonCount`, and then the word "Lessons". However, in case there's only one lesson, we'll use a ternary statement to determine if we are going to pluralize or not. Remember to add `meta` as a required PropType.
+
+```javascript
+const CourseMeta = ({meta}) => {
+  return (
+    <div className='f6 dark-gray o-50'>
+      {meta.lessonCount} {meta.lessonCount === 1 ? 'Lesson' : 'Lessons'}
+    </div>
+  )
+}
+CourseMeta.propTypes = {
+  meta: PropTypes.object.isRequired
+}
+```
+
+In order to make our new `CourseMeta` component work when looked up in our `cardTypes` object, we'll create a key for `metaComponent` nested inside of our `course` key's object, and have the value for `metaComponent` be an arrow function that takes `meta` as a parameter and returns our `CourseMeta` component with `meta` as the prop value.
+
+The reason we do this is because our `CourseMeta` component is dynamic based on its props, and we have to be able to pass in our `meta` object.
+
+```javascript
+const cardTypes = {
+  'course': {
+    'cardClasses': `${commonCardClasses} card-stacked-shadow card-course`,
+    'innerClasses': `${enhancedInnerClasses}`,
+    'pillClasses': `${orangePillClasses}`,
+    'metaComponent': (meta) => <CourseMeta meta={meta} />
+  },
+```
+
+#### `LessonMeta` and `PlaylistMeta` Components
+Creating these components will be much the same as the process we just followed, with one difference of note for for the `PlaylistMeta`'s shaded progress bar.
 
 
 

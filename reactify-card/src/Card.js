@@ -15,12 +15,15 @@ const cardTypes = {
   'course': {
     'cardClasses': `${commonCardClasses} card-stacked-shadow card-course`,
     'innerClasses': `${enhancedInnerClasses}`,
-    'pillClasses': `${orangePillClasses}`
+    'pillClasses': `${orangePillClasses}`,
+    'metaComponent': (meta) => <CourseMeta meta={meta} />
   },
   'lesson': {
     'cardClasses': `${commonCardClasses} card-lesson`,
     'innerClasses': `${enhancedInnerClasses}`,
-    'pillClasses': `${bluePillClasses}`
+    'pillClasses': `${bluePillClasses}`,
+    'metaComponent': (meta) => <LessonMeta meta={meta} />
+
   },
   'playlist': {
     'cardClasses': `${commonCardClasses} card-stacked-shadow sans-serif card-playlist`,
@@ -31,6 +34,32 @@ const cardTypes = {
 
 const titleHeadingClasses = 'f3 tc mt4 mb2 avenir fw5'
 const authorNameClasses = 'f6 dark-gray o-50 mb4 tc'
+
+const CourseMeta = ({meta}) => {
+  return (
+    <div className='f6 dark-gray o-50'>
+      {meta.lessonCount} {meta.lessonCount === 1 ? 'Lesson' : 'Lessons'}
+    </div>
+  )
+}
+CourseMeta.propTypes = {
+  meta: PropTypes.object.isRequired
+}
+
+
+const LessonMeta = ({meta}) => {
+  return (
+    <div className='flex items-center gray'>
+      <img src={meta.langImg} className='w2' alt='' />
+      <i className='fa fa-clock-o o-60 f5 ml3' />
+      <div className='w3 ml2 o-60 f6'>{meta.videoLength}</div>
+    </div>
+  )
+}
+LessonMeta.propTypes = {
+  meta: PropTypes.object.isRequired
+}
+
 
 const MaterialType = ({type}) => {
   return (
@@ -44,6 +73,7 @@ MaterialType.propTypes = {
 const CardFooter = ({meta, type}) => {
   return (
     <div className={footerClasses}>
+      {cardTypes[type]['metaComponent'] ? cardTypes[type]['metaComponent'](meta) : null}
       <MaterialType type={type} />
     </div>
   ) 
