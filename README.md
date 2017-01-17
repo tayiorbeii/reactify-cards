@@ -55,13 +55,13 @@ export const CourseCard = ({title, author, type, meta}) => {
 Since each Card type has a different set of metadata that it displays, we are going to create a new stateless functional component for each. When they've been created, we'll add each of them to the appropriate type in our `cardTypes` object so we can call them up later.
 
 #### `CourseMeta` Component
-Our `CourseCard` is simply a count of the number of lessons. Going off of the markup in `StaticCard.js`'s example, we can see we only need a single `<div>` with some class names. Inside, we'll use curly braces to display `meta.lessonCount`, and then the word "Lessons". However, in case there's only one lesson, we'll use a ternary statement to determine if we are going to pluralize or not. Remember to add `meta` as a required PropType.
+Our `CourseCard` is simply a count of the number of lessons. Going off of the markup in `StaticCard.js`'s example, we can see we only need a single `<div>` with some class names. Inside, we'll use curly braces to display `meta.lessonCount`, and then the word "lessons". However, in case there's only one lesson, we'll use a ternary statement to determine if we are going to pluralize or not. Remember to add `meta` as a required PropType.
 
 ```javascript
 const CourseMeta = ({meta}) => {
   return (
     <div className='f6 dark-gray o-50'>
-      {meta.lessonCount} {meta.lessonCount === 1 ? 'Lesson' : 'Lessons'}
+      {meta.lessonCount} {meta.lessonCount === 1 ? 'lesson' : 'lessons'}
     </div>
   )
 }

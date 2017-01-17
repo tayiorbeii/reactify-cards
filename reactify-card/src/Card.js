@@ -28,7 +28,8 @@ const cardTypes = {
   'playlist': {
     'cardClasses': `${commonCardClasses} card-stacked-shadow sans-serif card-playlist`,
     'innerClasses': `${commonInnerClasses}`,
-    'pillClasses': `${greenPillClasses}`
+    'pillClasses': `${greenPillClasses}`,
+    'metaComponent': (meta) => <PlaylistMeta meta={meta} />
   }
 }
 
@@ -38,14 +39,13 @@ const authorNameClasses = 'f6 dark-gray o-50 mb4 tc'
 const CourseMeta = ({meta}) => {
   return (
     <div className='f6 dark-gray o-50'>
-      {meta.lessonCount} {meta.lessonCount === 1 ? 'Lesson' : 'Lessons'}
+      {meta.lessonCount} {meta.lessonCount === 1 ? 'lesson' : 'lessons'}
     </div>
   )
 }
 CourseMeta.propTypes = {
   meta: PropTypes.object.isRequired
 }
-
 
 const LessonMeta = ({meta}) => {
   return (
@@ -60,6 +60,27 @@ LessonMeta.propTypes = {
   meta: PropTypes.object.isRequired
 }
 
+const PlaylistMeta = ({meta}) => {
+  return (
+    <div>
+      <div className='flex flex-column items-center'>
+        <div className='f6 dark-gray o-50'>
+          <span className='dark-green'>{meta.currentLesson}</span>
+          <span className='mh1'>/</span>
+          <span>{meta.lessonCount} {meta.lessonCount === 1 ? 'lesson' : 'lessons'}</span>
+        </div>
+        <div className='w4 br1 bg-tag-turquoise mt1 overflow-hidden'>
+          <div className='pt1 bg-turquoise' style={{
+            width: `${Math.round((meta.currentLesson / meta.lessonCount) * 100)}%`
+          }} />
+        </div>
+      </div>
+    </div>
+  )
+}
+PlaylistMeta.propTypes = {
+  meta: PropTypes.object.isRequired
+}
 
 const MaterialType = ({type}) => {
   return (
