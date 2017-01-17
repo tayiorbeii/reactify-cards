@@ -49,7 +49,7 @@ const CardFooter = ({meta, type}) => {
   ) 
 }
 CardFooter.propTypes = {
-  meta: PropTypes.string,
+  meta: PropTypes.object,
   type: PropTypes.string.isRequired
 }
 
@@ -80,23 +80,41 @@ Card.propTypes = {
   title: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
   type: PropTypes.oneOf(keys(cardTypes)),
-  meta: PropTypes.string
+  meta: PropTypes.object
 }
 
-export const CourseCard = ({title, author, type}) => {
+export const CourseCard = ({title, author, type, meta}) => {
   return (
-    <Card title={title} author={author} type='course' />
+    <Card title={title} author={author} type='course' meta={meta} />
   )
 }
-
-export const LessonCard = ({title, author, type}) => {
-  return (
-    <Card title={title} author={author} type='lesson' />
-  )
+CourseCard.propTypes = {
+  title: PropTypes.string.isRequired,
+  author: PropTypes.string.isRequired,
+  type: PropTypes.oneOf(keys(cardTypes)),
+  meta: PropTypes.object
 }
 
-export const PlaylistCard = ({title, author, type}) => {
+export const LessonCard = ({title, author, type, meta}) => {
   return (
-    <Card title={title} author={author} type='playlist' />
+    <Card title={title} author={author} type='lesson' meta={meta} />
   )
+}
+LessonCard.propTypes = {
+  title: PropTypes.string.isRequired,
+  author: PropTypes.string.isRequired,
+  type: PropTypes.oneOf(keys(cardTypes)),
+  meta: PropTypes.object
+}
+
+export const PlaylistCard = ({title, author, type, meta}) => {
+  return (
+    <Card title={title} author={author} type='playlist' meta={meta} />
+  )
+}
+PlaylistCard.propTypes = {
+  title: PropTypes.string.isRequired,
+  author: PropTypes.string.isRequired,
+  type: PropTypes.oneOf(keys(cardTypes)),
+  meta: PropTypes.object
 }
