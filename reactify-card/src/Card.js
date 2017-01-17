@@ -29,6 +29,7 @@ const cardTypes = {
     'cardClasses': `${commonCardClasses} card-stacked-shadow sans-serif card-playlist`,
     'innerClasses': `${commonInnerClasses}`,
     'pillClasses': `${greenPillClasses}`,
+    'footerClasses': 'pb4 ph4',
     'metaComponent': (meta) => <PlaylistMeta meta={meta} />
   }
 }
@@ -62,18 +63,16 @@ LessonMeta.propTypes = {
 
 const PlaylistMeta = ({meta}) => {
   return (
-    <div>
-      <div className='flex flex-column items-center'>
-        <div className='f6 dark-gray o-50'>
-          <span className='dark-green'>{meta.currentLesson}</span>
-          <span className='mh1'>/</span>
-          <span>{meta.lessonCount} {meta.lessonCount === 1 ? 'lesson' : 'lessons'}</span>
-        </div>
-        <div className='w4 br1 bg-tag-turquoise mt1 overflow-hidden'>
-          <div className='pt1 bg-turquoise' style={{
-            width: `${Math.round((meta.currentLesson / meta.lessonCount) * 100)}%`
-          }} />
-        </div>
+    <div className='flex flex-column items-center'>
+      <div className='f6 dark-gray o-50'>
+        <span className='dark-green'>{meta.currentLesson}</span>
+        <span className='mh1'>/</span>
+        <span>{meta.lessonCount} {meta.lessonCount === 1 ? 'lesson' : 'lessons'}</span>
+      </div>
+      <div className='w4 br1 bg-tag-turquoise mt1 overflow-hidden'>
+        <div className='pt1 bg-turquoise' style={{
+          width: `${Math.round((meta.currentLesson / meta.lessonCount) * 100)}%`
+        }} />
       </div>
     </div>
   )
@@ -93,7 +92,7 @@ MaterialType.propTypes = {
 
 const CardFooter = ({meta, type}) => {
   return (
-    <div className={footerClasses}>
+    <div className={`${footerClasses} ${cardTypes[type]['footerClasses']}`}>
       {cardTypes[type]['metaComponent'] ? cardTypes[type]['metaComponent'](meta) : null}
       <MaterialType type={type} />
     </div>

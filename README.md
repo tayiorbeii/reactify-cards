@@ -85,7 +85,9 @@ const cardTypes = {
 ```
 
 #### `LessonMeta` and `PlaylistMeta` Components
-Creating these components will be much the same as the process we just followed, with one difference of note for for the `PlaylistMeta`'s shaded progress bar.
+Creating these components will be much the same as the process we just followed, with some differences of note with our `PlaylistMeta` component.
+
+Our static mockup of the `PlaylistMeta` card has different classes for the footer than our other cards, so we need to modify our `CardFooter` subcomponent to look for additional classes specific to the card type. 
 
 
 
