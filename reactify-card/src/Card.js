@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { keys } from 'lodash'
+import PlayButton from './PlayButton'
 import './assets/index.css'
 
 const commonCardClasses = 'relative card'
@@ -16,13 +17,16 @@ const cardTypes = {
     'cardClasses': `${commonCardClasses} card-stacked-shadow card-course`,
     'innerClasses': `${enhancedInnerClasses}`,
     'pillClasses': `${orangePillClasses}`,
-    'metaComponent': (meta) => <CourseMeta meta={meta} />
+    'metaComponent': (meta) => <CourseMeta meta={meta} />,
+    'headerComponent': (meta) => <CourseHeader meta={meta} />
   },
   'lesson': {
     'cardClasses': `${commonCardClasses} card-lesson`,
     'innerClasses': `${enhancedInnerClasses}`,
     'pillClasses': `${bluePillClasses}`,
-    'metaComponent': (meta) => <LessonMeta meta={meta} />
+    'metaComponent': (meta) => <LessonMeta meta={meta} />,
+    'headerComponent': (meta) => <LessonHeader meta={meta} />
+
 
   },
   'playlist': {
@@ -30,7 +34,8 @@ const cardTypes = {
     'innerClasses': `${commonInnerClasses}`,
     'pillClasses': `${greenPillClasses}`,
     'footerClasses': 'pb4 ph4',
-    'metaComponent': (meta) => <PlaylistMeta meta={meta} />
+    'metaComponent': (meta) => <PlaylistMeta meta={meta} />,
+    'headerComponent': (meta) => <PlaylistHeader meta={meta} />
   }
 }
 
@@ -48,6 +53,20 @@ CourseMeta.propTypes = {
   meta: PropTypes.object.isRequired
 }
 
+const CourseHeader = ({meta}) => {
+  return (
+    <div>
+      <PlayButton hover />
+      <div className='mw5 mt3 center ph3'>
+        <img alt='' src={meta.courseImg} />
+      </div>
+    </div>
+  )
+}
+CourseHeader.propTypes = {
+  meta: PropTypes.object.isRequired
+}
+
 const LessonMeta = ({meta}) => {
   return (
     <div className='flex items-center gray'>
@@ -58,6 +77,13 @@ const LessonMeta = ({meta}) => {
   )
 }
 LessonMeta.propTypes = {
+  meta: PropTypes.object.isRequired
+}
+
+const LessonHeader = ({meta}) => {
+  return <PlayButton hover />
+}
+LessonHeader.propTypes = {
   meta: PropTypes.object.isRequired
 }
 
@@ -81,6 +107,27 @@ PlaylistMeta.propTypes = {
   meta: PropTypes.object.isRequired
 }
 
+const PlaylistHeader = ({meta}) => {
+  const { timeRemaining, lessonsLeft } = meta
+  return (
+    <div>
+      <div className='relative w-100' style={{
+        height: '290px'
+      }}>
+        <PlayButton />
+      </div>
+      <div className='ph4 pt5'>
+        <div className='tc f6 lh-title light-gray'>
+          {`${timeRemaining} to go (${lessonsLeft} more ${lessonsLeft === 1 ? 'lesson' : 'lessons'})`}
+        </div>
+      </div>
+    </div>
+  )
+}
+PlaylistHeader.propTypes = {
+  meta: PropTypes.object.isRequired
+}
+
 const MaterialType = ({type}) => {
   return (
     <div className={cardTypes[type]['pillClasses']}>{type}</div> 
@@ -89,6 +136,20 @@ const MaterialType = ({type}) => {
 MaterialType.propTypes = {
   type: PropTypes.string.isRequired
 }
+
+const CardHeader = ({meta, type}) => {
+  const headerComponent = cardTypes[type].headerComponent ? cardTypes[type].headerComponent(meta) : null
+  return (
+    <div>
+      {headerComponent}
+    </div>
+  )  
+}
+CardHeader.propTypes = {
+  meta: PropTypes.object,
+  type: PropTypes.string.isRequired
+}
+
 
 const CardFooter = ({meta, type}) => {
   const metaComponent = cardTypes[type].metaComponent ? cardTypes[type].metaComponent(meta) : null
@@ -121,6 +182,7 @@ export const Card = ({title, author, type, meta}) => {
   return (
     <div className={cardTypes[type]['cardClasses']}> 
       <div className={cardTypes[type]['innerClasses']}>
+        <CardHeader type={type} meta={meta} />
         <CardBody title={title} author={author} />
         <CardFooter type={type} meta={meta} />
       </div>

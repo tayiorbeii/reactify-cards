@@ -1,78 +1,47 @@
-# 08. Finishing the Footer
+# 09. Creating Header Components
 
-## Adding Mock Meta Data
-In order to display meta data on our cards, we should start by creating some.
-
-For the purposes of this demo, we'll just add some to our `testData` in our `index.js` file, using the stuff we can see in our `StaticCard` examples as a guide. We'll also import our image assets for passing to the cards.
+Let's start with a `CardHeader` stateless functional component modeled after our `CardFooter`. It will be a stateless functional component that will look up the `type` in our `cardTypes` object, and return the appropriate `headerComponent`, which we will create and add to the `cardTypes` entry.
 
 ```javascript
-import imgCourseCard from './assets/img-course-card.png'
-import imgJs from './assets/js.svg'
-import imgRx from './assets/rx.svg'
-
-const testData = {
-  title: 'Introduction to RxJS Marble Testing Two lines headline',
-  author: 'Joe Maddalone',
-  meta: {
-    courseImg: imgCourseCard,
-    langImg: imgJs,
-    lessonCount: 12,
-    currentLesson: 7,
-    lessonsLeft: 5,
-    timeRemaining: '14:34',
-    videoLength: '22:22',
-    playlist: [
-      {
-        watched: true,
-        current: false,
-        icon: imgRx,
-        title: 'First Video',
-        length: '01:11'
-      },
-    ...
-```
-
-## Update Components to Accept `meta`
-
-With our metadata in place, we can pass it in as the `meta` prop on each of our `Card` variations, like so:
-
-```javascript
-// inside index.js
-
-<CourseCard title={testData.title} author={testData.author} meta={testData.meta} />
-```
-
-Now we need to update each of our individual `Card` components to use the `meta` prop. For example:
-```javascript
-export const CourseCard = ({title, author, type, meta}) => {
+const CardHeader = ({meta, type}) => {
+  const headerComponent = cardTypes[type].headerComponent ? cardTypes[type].headerComponent(meta) : null
   return (
-    <Card title={title} author={author} type='course' meta={meta} />
-  )
+    <div>
+      {headerComponent}
+    </div>
+  )  
 }
 ```
 
-## Creating our MaterialMeta Components
-Since each Card type has a different set of metadata that it displays, we are going to create a new stateless functional component for each. When they've been created, we'll add each of them to the appropriate type in our `cardTypes` object so we can call them up later.
+Now we can add it to our `Card` component:
+```javascript
+// inside the `Card` component
+    
+<div className={cardTypes[type]['innerClasses']}>
+  <CardHeader type={type} meta={meta} />
+  <CardBody title={title} author={author} />
+  <CardFooter type={type} meta={meta} />
+</div>
+```
 
-#### `CourseMeta` Component
-Our `CourseCard` is simply a count of the number of lessons. Going off of the markup in `StaticCard.js`'s example, we can see we only need a single `<div>` with some class names. Inside, we'll use curly braces to display `meta.lessonCount`, and then the word "lessons". However, in case there's only one lesson, we'll use a ternary statement to determine if we are going to pluralize or not. Remember to add `meta` as a required PropType.
+## Creating `CourseHeader` & `LessonHeader`
+Our `CourseHeader` component will contain an image that we'll get from `meta`, along with our `PlayButton` component that we created earlier. We can just copy the structure and styles from the example in `StaticCards.js`. After we create the component, we'll add it to the `course` section in our `cardTypes` object.
 
 ```javascript
-const CourseMeta = ({meta}) => {
+const CourseHeader = ({meta}) => {
   return (
-    <div className='f6 dark-gray o-50'>
-      {meta.lessonCount} {meta.lessonCount === 1 ? 'lesson' : 'lessons'}
+    <div>
+      <PlayButton hover />
+      <div className='mw5 mt3 center ph3'>
+        <img alt='' src={meta.courseImg} />
+      </div>
     </div>
   )
 }
-CourseMeta.propTypes = {
+CourseHeader.propTypes = {
   meta: PropTypes.object.isRequired
-}
+} 
 ```
-
-In order to make our new `CourseMeta` component work when looked up in our `cardTypes` object, we'll create a key for `metaComponent` nested inside of our `course` key's object, and have the value for `metaComponent` be an arrow function that takes `meta` as a parameter and returns our `CourseMeta` component with `meta` as the prop value.
-
-The reason we do this is because our `CourseMeta` component is dynamic based on its props, and we have to be able to pass in our `meta` object.
 
 ```javascript
 const cardTypes = {
@@ -80,26 +49,49 @@ const cardTypes = {
     'cardClasses': `${commonCardClasses} card-stacked-shadow card-course`,
     'innerClasses': `${enhancedInnerClasses}`,
     'pillClasses': `${orangePillClasses}`,
-    'metaComponent': (meta) => <CourseMeta meta={meta} />
+    'metaComponent': (meta) => <CourseMeta meta={meta} />,
+    'headerComponent': (meta) => <CourseHeader meta={meta} />
   },
+...
 ```
 
-#### `LessonMeta` and `PlaylistMeta` Components
-Creating these components will be much the same as the process we just followed, with some differences of note with our `PlaylistMeta` component.
+Since we've already laid the groundwork for our `CardHeader`, as soon as we save the file our App should update to show us the header image.
 
-Our static mockup of the `PlaylistMeta` card has different classes for the footer than our other cards, so we need to modify `cardTypes` object to include a `footerClasses` key for our `playlist` Card, and then update our `CardFooter` subcomponent to look for these additional classes. 
+Our `LessonHeader` component is much the same as our `CourseHeader`, except it will only return the `PlayButton` component.
+
+## Starting the `PlaylistHeader` Component
+There's a lot more going on in the header of our `PlaylistCard` than any of the others (i.e. there's a whole playlist there!)... but in the meantime, we can add the `PlayButton` and remaining time subcomponents.
+
+Like the others, we'll start with a stateless functional component with a destructured `meta` parameter. Inside of our function, we'll destructure variables for `timeRemaining` and `lessonsLeft` from `meta` in order to render our playlist time left info. Looking at our mockup in `StaticCards.js`, we need to transfer over the class names and inline style from the `<div>` surrounding our `PlaylistButton` and the playlist entries.
+
+Inside of this new `<div>` and below our `<PlayButton />`, we will create our "remaining time" line using our `timeRemaining` and `lessonsLeft` variables, again making use of a ternary statement to determine if we will be pluralizing the word "lesson" or not.
 
 ```javascript
-const CardFooter = ({meta, type}) => {
-  const metaComponent = cardTypes[type].metaComponent ? cardTypes[type].metaComponent(meta) : null
+const PlaylistHeader = ({meta}) => {
+  const { timeRemaining, lessonsLeft } = meta
   return (
-    <div className={`${footerClasses} ${cardTypes[type]['footerClasses']}`}>
-      {metaComponent}
-      <MaterialType type={type} />
+    <div>
+      <div className='relative w-100' style={{
+        height: '290px'
+      }}>
+        <PlayButton />
+      </div>
+      <div className='ph4 pt5'>
+        <div className='tc f6 lh-title light-gray'>
+          {`${timeRemaining} to go (${lessonsLeft} more ${lessonsLeft === 1 ? 'lesson' : 'lessons'})`}
+        </div>
+      </div>
     </div>
-  ) 
+  )
 }
 ```
 
+Again, remember to declare propTypes for our `PlaylistHeader` and add it to the right part of our `cardTypes` object.
+
+Saving the file, you should see our `PlaylistHeader` is starting to look like the mockup.
+
 ## Next Step
-Add the `PlayButton` component to our `Card` component
+The time has come to create our most complex component: the playlist.
+
+
+
