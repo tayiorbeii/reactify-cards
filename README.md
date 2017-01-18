@@ -102,4 +102,4 @@ const CardFooter = ({meta, type}) => {
 ```
 
 ## Next Step
-Add the `PlayButton` component to our `Card` component
+Create `Header` components for our Cards
