@@ -91,9 +91,10 @@ MaterialType.propTypes = {
 }
 
 const CardFooter = ({meta, type}) => {
+  const metaComponent = cardTypes[type].metaComponent ? cardTypes[type].metaComponent(meta) : null
   return (
     <div className={`${footerClasses} ${cardTypes[type]['footerClasses']}`}>
-      {cardTypes[type]['metaComponent'] ? cardTypes[type]['metaComponent'](meta) : null}
+      {metaComponent}
       <MaterialType type={type} />
     </div>
   ) 

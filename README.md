@@ -87,9 +87,19 @@ const cardTypes = {
 #### `LessonMeta` and `PlaylistMeta` Components
 Creating these components will be much the same as the process we just followed, with some differences of note with our `PlaylistMeta` component.
 
-Our static mockup of the `PlaylistMeta` card has different classes for the footer than our other cards, so we need to modify our `CardFooter` subcomponent to look for additional classes specific to the card type. 
+Our static mockup of the `PlaylistMeta` card has different classes for the footer than our other cards, so we need to modify `cardTypes` object to include a `footerClasses` key for our `playlist` Card, and then update our `CardFooter` subcomponent to look for these additional classes. 
 
-
+```javascript
+const CardFooter = ({meta, type}) => {
+  const metaComponent = cardTypes[type].metaComponent ? cardTypes[type].metaComponent(meta) : null
+  return (
+    <div className={`${footerClasses} ${cardTypes[type]['footerClasses']}`}>
+      {metaComponent}
+      <MaterialType type={type} />
+    </div>
+  ) 
+}
+```
 
 ## Next Step
 Add the `PlayButton` component to our `Card` component
