@@ -107,6 +107,20 @@ PlaylistMeta.propTypes = {
   meta: PropTypes.object.isRequired
 }
 
+const PlaylistSummary = ({timeRemaining, lessonsLeft}) => {
+  return (
+    <div className='ph4 pt5'>
+      <div className='tc f6 lh-title light-gray'>
+        {`${timeRemaining} to go (${lessonsLeft} more ${lessonsLeft === 1 ? 'lesson' : 'lessons'})`}
+      </div>
+    </div>
+  )
+}
+PlaylistSummary.propTypes = {
+  timeRemaining: PropTypes.string.isRequired,
+  lessonsLeft: PropTypes.number.isRequired
+}
+
 const PlaylistHeader = ({meta}) => {
   const { timeRemaining, lessonsLeft } = meta
   return (
@@ -116,11 +130,7 @@ const PlaylistHeader = ({meta}) => {
       }}>
         <PlayButton />
       </div>
-      <div className='ph4 pt5'>
-        <div className='tc f6 lh-title light-gray'>
-          {`${timeRemaining} to go (${lessonsLeft} more ${lessonsLeft === 1 ? 'lesson' : 'lessons'})`}
-        </div>
-      </div>
+      <PlaylistSummary timeRemaining={timeRemaining} lessonsLeft={lessonsLeft} />
     </div>
   )
 }

@@ -64,7 +64,23 @@ There's a lot more going on in the header of our `PlaylistCard` than any of the 
 
 Like the others, we'll start with a stateless functional component with a destructured `meta` parameter. Inside of our function, we'll destructure variables for `timeRemaining` and `lessonsLeft` from `meta` in order to render our playlist time left info. Looking at our mockup in `StaticCards.js`, we need to transfer over the class names and inline style from the `<div>` surrounding our `PlaylistButton` and the playlist entries.
 
-Inside of this new `<div>` and below our `<PlayButton />`, we will create our "remaining time" line using our `timeRemaining` and `lessonsLeft` variables, again making use of a ternary statement to determine if we will be pluralizing the word "lesson" or not.
+Inside of this new `<div>` and below our `<PlayButton />`, we'll add a new `PlaylistSummary` component.
+
+This component is yet another stateless functional component, and will take the `timeRemaining` and `lessonsLeft` from `meta`, and we will again be making use of a ternary statement to determine if we will be pluralizing the word "lesson" or not.
+
+```javascript
+const PlaylistSummary = ({timeRemaining, lessonsLeft}) => {
+  return (
+    <div className='ph4 pt5'>
+      <div className='tc f6 lh-title light-gray'>
+        {`${timeRemaining} to go (${lessonsLeft} more ${lessonsLeft === 1 ? 'lesson' : 'lessons'})`}
+      </div>
+    </div>
+  )
+}
+```
+
+With `PlaylistSummary` created, we can add it to the `PlaylistHeader` component:
 
 ```javascript
 const PlaylistHeader = ({meta}) => {
@@ -76,22 +92,18 @@ const PlaylistHeader = ({meta}) => {
       }}>
         <PlayButton />
       </div>
-      <div className='ph4 pt5'>
-        <div className='tc f6 lh-title light-gray'>
-          {`${timeRemaining} to go (${lessonsLeft} more ${lessonsLeft === 1 ? 'lesson' : 'lessons'})`}
-        </div>
-      </div>
+      <PlaylistSummary timeRemaining={timeRemaining} lessonsLeft={lessonsLeft} />
     </div>
   )
 }
 ```
 
-Again, remember to declare propTypes for our `PlaylistHeader` and add it to the right part of our `cardTypes` object.
+Again, remember to declare propTypes for both of our new components.
 
 Saving the file, you should see our `PlaylistHeader` is starting to look like the mockup.
 
 ## Next Step
-The time has come to create our most complex component: the playlist.
+The time has come to create our most complex component: the Playlist itself.
 
 
 
