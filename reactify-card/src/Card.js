@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { keys } from 'lodash'
 import PlayButton from './PlayButton'
+import Playlist from './Playlist'
 import './assets/index.css'
 
 const commonCardClasses = 'relative card'
