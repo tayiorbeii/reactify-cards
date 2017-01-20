@@ -81,7 +81,16 @@ const VideoTitle = ({title}) => {
 }
 ```
 
-## All Together Now
+## Some Housekeeping
 Now we've completed all of our Playlist subcomponents, but for the time being we have half of our Playlist-related code in `Cards.js`, and half in `Playlist.js`. Let's do a little cleanup and refactoring.
 
+Start by moving `PlaylistCard`, `PlaylistMeta`, `PlaylistSummary`, and `PlaylistHeader` over into `Playlist.js`.
+
+We'll now need to add the `export` keyword to all of these components except `PlaylistSummary` so we can import them into `Card.js`:
+
+```javascript
+import { PlaylistCard, PlaylistMeta, PlaylistHeader } from './Playlist'
+```
+
+We also need to move our `PlaylistCard` import in our `index.js` file to be from `./Playlist` instead of `./Card`.
 

@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import PlayButton from './PlayButton'
-import Card from './Card'
+import { Card } from './Card'
 
 const VideoLength = ({length}) => {
   return <div className='w3 ml3 tr o-60'>{length}</div>
@@ -51,6 +51,7 @@ Playlist.propTypes ={
 }
 
 export const PlaylistCard = ({title, author, meta}) => {
+  console.log(meta)
   return (
     <Card title={title} author={author} type='playlist' meta={meta} />
   )
@@ -61,7 +62,7 @@ PlaylistCard.propTypes = {
   meta: PropTypes.object
 }
 
-const PlaylistMeta = ({meta}) => {
+export const PlaylistMeta = ({meta}) => {
   return (
     <div className='flex flex-column items-center'>
       <div className='f6 dark-gray o-50'>
@@ -95,7 +96,7 @@ PlaylistSummary.propTypes = {
   lessonsLeft: PropTypes.number.isRequired
 }
 
-const PlaylistHeader = ({meta}) => {
+export const PlaylistHeader = ({meta}) => {
   const { timeRemaining, lessonsLeft } = meta
   return (
     <div>

@@ -6,7 +6,8 @@ import imgCourseCard from './assets/img-course-card.png'
 import imgJs from './assets/js.svg'
 import imgRx from './assets/rx.svg'
 import { StaticCourseCard, StaticLessonCard, StaticPlaylistCard } from './StaticCards'
-import { CourseCard, LessonCard, PlaylistCard } from './Card'
+import { CourseCard, LessonCard } from './Card'
+import { PlaylistCard } from './Playlist'
 
 const testData = {
   title: 'Introduction to RxJS Marble Testing Two lines headline',
