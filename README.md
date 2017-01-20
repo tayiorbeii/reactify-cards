@@ -81,16 +81,43 @@ const VideoTitle = ({title}) => {
 }
 ```
 
+And adding our classes, we end up with our finished component:
+
+```javascript
+const PlaylistItem = ({item}) => {
+  const { watched, current, icon, title, length } = item
+  const liClasses = 'flex items-start relative f6 lh-solid pointer pv3 pl4 pr3 gray hover-bg-white card-progress-list-item' 
+  const textClasses = 'ml2 flex justify-between flex-grow-1 lh-copy overflow-hidden lesson-title'
+
+  const watchedClasses = 'viewed o-60'
+  const watchedTitleClasses = 'o-60'
+  const currentClasses = 'next'
+
+  return (
+    <li className={`${liClasses} ${watched ? watchedClasses : null} ${current ? currentClasses : null}`}>
+      <CategoryIcon icon={icon} />
+      <div className={`${textClasses} ${watched ? watchedTitleClasses : null}`}>
+        <VideoTitle title={title} />
+        <VideoLength length={length} />
+      </div>
+    </li>
+  )
+}
+```
+
+
 ## Some Housekeeping
 Now we've completed all of our Playlist subcomponents, but for the time being we have half of our Playlist-related code in `Cards.js`, and half in `Playlist.js`. Let's do a little cleanup and refactoring.
 
 Start by moving `PlaylistCard`, `PlaylistMeta`, `PlaylistSummary`, and `PlaylistHeader` over into `Playlist.js`.
 
-We'll now need to add the `export` keyword to all of these components except `PlaylistSummary` so we can import them into `Card.js`:
+We'll now need to add the `export` keyword to `PlaylistMeta` and `PlaylistHeader` so we can import them into `Card.js`:
 
 ```javascript
 import { PlaylistCard, PlaylistMeta, PlaylistHeader } from './Playlist'
 ```
 
 We also need to move our `PlaylistCard` import in our `index.js` file to be from `./Playlist` instead of `./Card`.
+
+## 
 
