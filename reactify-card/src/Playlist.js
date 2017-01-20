@@ -1,4 +1,6 @@
 import React, { PropTypes } from 'react'
+import PlayButton from './PlayButton'
+import Card from './Card'
 
 const VideoLength = ({length}) => {
   return <div className='w3 ml3 tr o-60'>{length}</div>
@@ -17,12 +19,18 @@ const CategoryIcon = ({icon}) => {
 }
 
 const PlaylistItem = ({item}) => {
+  const { watched, current, icon, title, length } = item
+  const liClasses = 'flex items-start relative f6 lh-solid pointer pv3 pl4 pr3 gray hover-bg-white card-progress-list-item' 
+
+  const watchedClasses = 'viewed'
+  const currentClasses = 'next'
+
   return (
-    <li className='flex items-start relative f6 lh-solid pointer pv3 pl4 pr3 gray hover-bg-white card-progress-list-item'>
-      <CategoryIcon icon={item.icon} />
+    <li className={`${liClasses} ${watched ? watchedClasses : null} ${current ? currentClasses : null}`}>
+      <CategoryIcon icon={icon} />
       <div className='ml2 flex justify-between flex-grow-1 lh-copy overflow-hidden o-60 lesson-title'>
-        <VideoTitle title={item.title} />
-        <VideoLength length={item.length} />
+        <VideoTitle title={title} />
+        <VideoLength length={length} />
       </div>
     </li>
   )
@@ -40,6 +48,69 @@ const Playlist = ({playlist}) => {
 }
 Playlist.propTypes ={
   playlist: PropTypes.array.isRequired
+}
+
+export const PlaylistCard = ({title, author, meta}) => {
+  return (
+    <Card title={title} author={author} type='playlist' meta={meta} />
+  )
+}
+PlaylistCard.propTypes = {
+  title: PropTypes.string.isRequired,
+  author: PropTypes.string.isRequired,
+  meta: PropTypes.object
+}
+
+const PlaylistMeta = ({meta}) => {
+  return (
+    <div className='flex flex-column items-center'>
+      <div className='f6 dark-gray o-50'>
+        <span className='dark-green'>{meta.currentLesson}</span>
+        <span className='mh1'>/</span>
+        <span>{meta.lessonCount} {meta.lessonCount === 1 ? 'lesson' : 'lessons'}</span>
+      </div>
+      <div className='w4 br1 bg-tag-turquoise mt1 overflow-hidden'>
+        <div className='pt1 bg-turquoise' style={{
+          width: `${Math.round((meta.currentLesson / meta.lessonCount) * 100)}%`
+        }} />
+      </div>
+    </div>
+  )
+}
+PlaylistMeta.propTypes = {
+  meta: PropTypes.object.isRequired
+}
+
+const PlaylistSummary = ({timeRemaining, lessonsLeft}) => {
+  return (
+    <div className='ph4 pt5'>
+      <div className='tc f6 lh-title light-gray'>
+        {`${timeRemaining} to go (${lessonsLeft} more ${lessonsLeft === 1 ? 'lesson' : 'lessons'})`}
+      </div>
+    </div>
+  )
+}
+PlaylistSummary.propTypes = {
+  timeRemaining: PropTypes.string.isRequired,
+  lessonsLeft: PropTypes.number.isRequired
+}
+
+const PlaylistHeader = ({meta}) => {
+  const { timeRemaining, lessonsLeft } = meta
+  return (
+    <div>
+      <div className='relative w-100' style={{
+        height: '290px'
+      }}>
+        <Playlist playlist={meta.playlist} />
+        <PlayButton />
+      </div>
+      <PlaylistSummary timeRemaining={timeRemaining} lessonsLeft={lessonsLeft} />
+    </div>
+  )
+}
+PlaylistHeader.propTypes = {
+  meta: PropTypes.object.isRequired
 }
 
 export default Playlist

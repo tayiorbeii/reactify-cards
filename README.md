@@ -6,7 +6,6 @@ Recall our Thinking in React exercise where we planned our components. Our plann
 
 * `Playlist`
   - `PlaylistItem`
-    - `PlayedStatus`
     - `CategoryIcon`
     - `VideoTitle`
     - `VideoLength`
@@ -15,7 +14,7 @@ Recall our Thinking in React exercise where we planned our components. Our plann
 
 We've already created the `PlaylistSummary` and the `PlayButton`, so let's do the `PlaylistItem`and its subcomponents (each of which being, you guessed it, stateless functional components).
 
-## Creating `Playlist` and `PlaylistItem`
+## Creating the `Playlist` Component
 The `meta` object we've been passing around contains an array called `playlist` that contains objects with the data we need to create our `PlaylistItem` components.
 
 With this in mind, we know that our new `Playlist` component will take the `playlist` array as a prop, and in turn each `item` object in the array will be passed to our new `PlaylistItem` component.
@@ -37,5 +36,52 @@ const Playlist = ({playlist}) => {
   )  
 }
 ```
+
+## Creating the `PlaylistItem` Component
+
+We already know that our `PlaylistItem` has an `item` prop, and will return an `<li>`. There will be different classes applied to each item based on its "played" status. Let's start by setting that up.
+
+Looking at our example mockup in `StaticCards.js`, we can see the same set of classes used for every item, with additional classes added for already played items or the item that will be started. For easy access, we'll destructure the `watched` and `current` keys from the `item`, and then use ternary statements for each inside of a string template to fill out our `<li>`'s `classNames`:
+
+```javascript
+const PlaylistItem = ({item}) => {
+  const { watched, current } = item
+  const liClasses = 'flex items-start relative f6 lh-solid pointer pv3 pl4 pr3 gray hover-bg-white card-progress-list-item' 
+  const watchedClasses = 'viewed'
+  const currentClasses = 'next'
+
+  return (
+    <li className={`${liClasses} ${watched ? watchedClasses : null} ${current ? currentClasses : null}`}>
+    </li>
+  )
+}
+```
+
+The first child inside of our `<li>` is a `CategoryIcon`. This component will take in the image as a prop (that will be passed after being destructured inside of our `PlaylistItem`), and return a simple `<img />` tag with some class names applied:
+
+```javascript
+const CategoryIcon = ({icon}) => {
+  return <img src={icon} className='ml2 mt1' alt='' />
+}
+```
+
+The last subcomponents are the `VideoTitle` and `VideoLength` displays, both of which are straight forward:
+
+```javascript
+const VideoLength = ({length}) => {
+  return <div className='w3 ml3 tr o-60'>{length}</div>
+}
+
+const VideoTitle = ({title}) => {
+  return (
+      <div className='truncate'>
+        {title}
+      </div>
+  )
+}
+```
+
+## All Together Now
+Now we've completed all of our Playlist subcomponents, but for the time being we have half of our Playlist-related code in `Cards.js`, and half in `Playlist.js`. Let's do a little cleanup and refactoring.
 
 
