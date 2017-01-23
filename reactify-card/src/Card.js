@@ -156,7 +156,7 @@ Card.propTypes = {
   meta: PropTypes.object
 }
 
-export const CourseCard = ({title, author, type, meta}) => {
+export const CourseCard = ({title, author, meta}) => {
   return (
     <Card title={title} author={author} type='course' meta={meta} />
   )
@@ -164,11 +164,10 @@ export const CourseCard = ({title, author, type, meta}) => {
 CourseCard.propTypes = {
   title: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
-  type: PropTypes.oneOf(keys(cardTypes)),
   meta: PropTypes.object
 }
 
-export const LessonCard = ({title, author, type, meta}) => {
+export const LessonCard = ({title, author, meta}) => {
   return (
     <Card title={title} author={author} type='lesson' meta={meta} />
   )
@@ -176,7 +175,6 @@ export const LessonCard = ({title, author, type, meta}) => {
 LessonCard.propTypes = {
   title: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
-  type: PropTypes.oneOf(keys(cardTypes)),
   meta: PropTypes.object
 }
 
