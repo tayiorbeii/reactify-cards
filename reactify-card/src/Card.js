@@ -80,7 +80,7 @@ Card.propTypes = {
   title: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
   type: PropTypes.oneOf(keys(cardTypes)),
-  meta: PropTypes.string
+  meta: PropTypes.object
 }
 
 export const CourseCard = ({title, author}) => {
