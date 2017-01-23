@@ -84,7 +84,7 @@ Our Course card is starting to take shape! However, since we only have a few dif
 ## Creating `CourseCard`, `LessonCard`, and `PlaylistCard`
 At the bottom of our `Card.js` file, we'll export stateless functional components for each of our Card types. They'll all follow roughly the same layout, with the name and `type` adjusted appropriately:
 ```javascript
-export const CourseCard = ({title, author, type}) => {
+export const CourseCard = ({title, author}) => {
   return (
     <Card title={title} author={author} type='course' />
   )
