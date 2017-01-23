@@ -153,7 +153,6 @@ export const LessonCard = ({title, author, meta}) => {
 LessonCard.propTypes = {
   title: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
-  type: PropTypes.oneOf(keys(cardTypes)),
   meta: PropTypes.object
 }
 
@@ -165,6 +164,5 @@ export const PlaylistCard = ({title, author, meta}) => {
 PlaylistCard.propTypes = {
   title: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
-  type: PropTypes.oneOf(keys(cardTypes)),
   meta: PropTypes.object
 }
