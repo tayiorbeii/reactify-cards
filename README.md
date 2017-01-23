@@ -119,5 +119,26 @@ import { PlaylistCard, PlaylistMeta, PlaylistHeader } from './Playlist'
 
 We also need to move our `PlaylistCard` import in our `index.js` file to be from `./Playlist` instead of `./Card`.
 
-## 
+## Finishing Up
 
+With all of our playlist-related code all in the same file, all that's left for now is to add our `Playlist` component into its place on the line below `<PlayButton />` in our `PlaylistHeader` component.
+
+```javascript
+export const PlaylistHeader = ({meta}) => {
+  const { timeRemaining, lessonsLeft } = meta
+  return (
+    <div>
+      <div className='relative w-100' style={{
+        height: '290px'
+      }}>
+        <PlayButton />
+        <Playlist playlist={meta.playlist} />
+      </div>
+      <PlaylistSummary timeRemaining={timeRemaining} lessonsLeft={lessonsLeft} />
+    </div>
+  )
+}
+```
+
+## Next Step
+Splitting the `CourseCard` and `LessonCard` components into their own files.

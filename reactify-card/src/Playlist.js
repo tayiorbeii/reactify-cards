@@ -108,7 +108,7 @@ PlaylistSummary.propTypes = {
 export const PlaylistHeader = ({meta}) => {
   const { timeRemaining, lessonsLeft } = meta
   return (
-    <div className='w-100'>
+    <div>
       <div className='relative w-100' style={{
         height: '290px'
       }}>
