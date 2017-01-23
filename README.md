@@ -1,4 +1,4 @@
-# 05. Card Type Awareness
+# 06. Card Type Awareness
 We've made progress on a generic `Card` component with a `CardBody` subcomponent, but now we will turn our attention toward creating our `CourseCard`, `LessonCard`, and `PlaylistCard` components.
 
 ## Preparation
