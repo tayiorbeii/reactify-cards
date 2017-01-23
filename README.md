@@ -1,5 +1,5 @@
 # 04. Starting the Card Component
-In the last section, we created a component hierarchy for our cards, and now we will start creating a reusable `Card` component that will eventually replace our example `StaticCard` examples.
+In the last section, we created a component hierarchy for our cards, and now we will start creating a reusable `Card` component that will eventually replace our `StaticCard` examples.
 
 ## Create the Component
 First, we'll create a new file called `Card.js` that will contain our code. Then we'll copy and paste our React and index.css imports out of `StaticCards.js` into our new file. We can also bring over our `commonCardClasses` and `commonInnerClasses` variables, since we'll be using them from the start.
