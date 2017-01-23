@@ -100,7 +100,7 @@ MaterialType.propTypes = {
 const CardHeader = ({meta, type}) => {
   const headerComponent = cardTypes[type].headerComponent ? cardTypes[type].headerComponent(meta) : null
   return (
-    <div>
+    <div className='w-100'>
       {headerComponent}
     </div>
   )  

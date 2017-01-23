@@ -48,7 +48,6 @@ PlaylistItem.propTypes = {
 }
 
 const Playlist = ({playlist}) => {
-  console.log(playlist)
   return (
     <div className='pr3 pt3 bg-tag-gray self-stretch h-100 br2 overflow-y-scroll'>
       <ul className='list pa0 ma0 overflow-hidden card-progress-list'>
@@ -57,12 +56,11 @@ const Playlist = ({playlist}) => {
     </div>
   )
 }
-Playlist.propTypes ={
+Playlist.propTypes = {
   playlist: PropTypes.array.isRequired
 }
 
 export const PlaylistCard = ({title, author, meta}) => {
-  console.log(meta)
   return (
     <Card title={title} author={author} type='playlist' meta={meta} />
   )
@@ -110,12 +108,12 @@ PlaylistSummary.propTypes = {
 export const PlaylistHeader = ({meta}) => {
   const { timeRemaining, lessonsLeft } = meta
   return (
-    <div>
+    <div className='w-100'>
       <div className='relative w-100' style={{
         height: '290px'
       }}>
-        <Playlist playlist={meta.playlist} />
         <PlayButton />
+        <Playlist playlist={meta.playlist} />
       </div>
       <PlaylistSummary timeRemaining={timeRemaining} lessonsLeft={lessonsLeft} />
     </div>
@@ -126,3 +124,4 @@ PlaylistHeader.propTypes = {
 }
 
 export default Playlist
+
