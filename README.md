@@ -29,7 +29,7 @@ It can be helpful to look at the hierarchy as a tree. We'll revisit this as we b
   - `HeaderImage`
   - `Playlist`
     - `PlaylistItem`
-      - `PlayedStatus`
+      - `PlayedStatus` (conditional classes on the `<li>`)
       - `CategoryIcon`
       - `VideoTitle`
       - `VideoLength`
