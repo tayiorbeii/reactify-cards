@@ -83,20 +83,33 @@ Card.propTypes = {
   meta: PropTypes.string
 }
 
-export const CourseCard = ({title, author, type}) => {
+export const CourseCard = ({title, author}) => {
   return (
     <Card title={title} author={author} type='course' />
   )
 }
+CourseCard.propTypes = {
+  title: PropTypes.string.isRequired,
+  author: PropTypes.string.isRequired,
+}
 
-export const LessonCard = ({title, author, type}) => {
+export const LessonCard = ({title, author}) => {
   return (
     <Card title={title} author={author} type='lesson' />
   )
 }
+LessonCard.propTypes = {
+  title: PropTypes.string.isRequired,
+  author: PropTypes.string.isRequired,
+}
 
-export const PlaylistCard = ({title, author, type}) => {
+export const PlaylistCard = ({title, author}) => {
   return (
     <Card title={title} author={author} type='playlist' />
   )
 }
+PlaylistCard.propTypes = {
+  title: PropTypes.string.isRequired,
+  author: PropTypes.string.isRequired,
+}
+
