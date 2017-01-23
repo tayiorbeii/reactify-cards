@@ -52,7 +52,7 @@ Card.propTypes = {
   type: PropTypes.oneOf(keys(cardTypes))
 }
 
-export const CourseCard = ({title, author, type}) => {
+export const CourseCard = ({title, author}) => {
   return (
     <Card title={title} author={author} type='course' />
   )
