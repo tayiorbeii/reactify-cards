@@ -2,6 +2,8 @@ import React, { PropTypes } from 'react';
 import { keys } from 'lodash'
 import PlayButton from './PlayButton'
 import { PlaylistMeta, PlaylistHeader } from './Playlist'
+import { CourseMeta, CourseHeader } from './Course'
+import { LessonMeta, LessonHeader } from './Lesson'
 import './assets/index.css'
 
 const commonCardClasses = 'relative card'
@@ -43,51 +45,6 @@ const cardTypes = {
 const titleHeadingClasses = 'f3 tc mt4 mb2 avenir fw5'
 const authorNameClasses = 'f6 dark-gray o-50 mb4 tc'
 
-const CourseMeta = ({meta}) => {
-  return (
-    <div className='f6 dark-gray o-50'>
-      {meta.lessonCount} {meta.lessonCount === 1 ? 'lesson' : 'lessons'}
-    </div>
-  )
-}
-CourseMeta.propTypes = {
-  meta: PropTypes.object.isRequired
-}
-
-const CourseHeader = ({meta}) => {
-  return (
-    <div>
-      <PlayButton hover />
-      <div className='mw5 mt3 center ph3'>
-        <img alt='' src={meta.courseImg} />
-      </div>
-    </div>
-  )
-}
-CourseHeader.propTypes = {
-  meta: PropTypes.object.isRequired
-}
-
-const LessonMeta = ({meta}) => {
-  return (
-    <div className='flex items-center gray'>
-      <img src={meta.langImg} className='w2' alt='' />
-      <i className='fa fa-clock-o o-60 f5 ml3' />
-      <div className='w3 ml2 o-60 f6'>{meta.videoLength}</div>
-    </div>
-  )
-}
-LessonMeta.propTypes = {
-  meta: PropTypes.object.isRequired
-}
-
-const LessonHeader = ({meta}) => {
-  return <PlayButton hover />
-}
-LessonHeader.propTypes = {
-  meta: PropTypes.object.isRequired
-}
-
 const MaterialType = ({type}) => {
   return (
     <div className={cardTypes[type]['pillClasses']}>{type}</div> 
@@ -109,7 +66,6 @@ CardHeader.propTypes = {
   meta: PropTypes.object,
   type: PropTypes.string.isRequired
 }
-
 
 const CardFooter = ({meta, type}) => {
   const metaComponent = cardTypes[type].metaComponent ? cardTypes[type].metaComponent(meta) : null
@@ -150,30 +106,6 @@ export const Card = ({title, author, type, meta}) => {
   )
 }
 Card.propTypes = {
-  title: PropTypes.string.isRequired,
-  author: PropTypes.string.isRequired,
-  type: PropTypes.oneOf(keys(cardTypes)),
-  meta: PropTypes.object
-}
-
-export const CourseCard = ({title, author, type, meta}) => {
-  return (
-    <Card title={title} author={author} type='course' meta={meta} />
-  )
-}
-CourseCard.propTypes = {
-  title: PropTypes.string.isRequired,
-  author: PropTypes.string.isRequired,
-  type: PropTypes.oneOf(keys(cardTypes)),
-  meta: PropTypes.object
-}
-
-export const LessonCard = ({title, author, type, meta}) => {
-  return (
-    <Card title={title} author={author} type='lesson' meta={meta} />
-  )
-}
-LessonCard.propTypes = {
   title: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
   type: PropTypes.oneOf(keys(cardTypes)),

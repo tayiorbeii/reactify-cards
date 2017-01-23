@@ -1,144 +1,52 @@
-# 10. Creating the Playlist Component
-We'll start by creating a new `Playlist.js` file along with an import for React and `PropTypes`.
+# 11. Splitting Out `CourseCard` and `LessonCard` Components
+Splitting the code for our other specific cards will follow a process much the same to what we just did with our `Playlist` file.
 
-## Revisting Our Component Plan
-Recall our Thinking in React exercise where we planned our components. Our planned `Playlist` hierarchy looked like this:
-
-* `Playlist`
-  - `PlaylistItem`
-    - `CategoryIcon`
-    - `VideoTitle`
-    - `VideoLength`
-  - `PlayButton`
-  - `PlaylistSummary`
-
-We've already created the `PlaylistSummary` and the `PlayButton`, so let's do the `PlaylistItem`and its subcomponents (each of which being, you guessed it, stateless functional components).
-
-## Creating the `Playlist` Component
-The `meta` object we've been passing around contains an array called `playlist` that contains objects with the data we need to create our `PlaylistItem` components.
-
-With this in mind, we know that our new `Playlist` component will take the `playlist` array as a prop, and in turn each `item` object in the array will be passed to our new `PlaylistItem` component.
-
-Like before, we will pull our classNames from the Playlst Card example in `StaticCards.js`. Looking at the example, we can tell that our `Playlist` component will contain the `<div>` and `<ul>`, then inside of the `<ul>`we will create `<li>`s for each of our `PlaylistItem`s.
-
-Since we don't know what or how many `PlaylistItem`s we will need, we will call the `.map()` method on our `playlist` prop. The `map()` method takes an arrow function with two paramaters: the first is the item `i` in the array, and the second paramater `k` is the index of the item. We'll use the index for the `key` prop that React uses to help it determine if an item needs updated.
-
-Our arrow function will return a `PlaylistItem` component, passing `i` as the `item` prop, and `k` as the `key` prop. Remember that since our arrow function doesn't have curly braces, we don't need to use the `return` keyword. 
+## Migrating `CourseCard`
+We'll start by creating a new file `Course.js` in our `src` directory. At the top of our file, we'll need to import React, our `PlayButton` component, and `Card`. 
 
 ```javascript
-const Playlist = ({playlist}) => {
-  return (
-    <div className='pr3 pt3 bg-tag-gray self-stretch h-100 br2 overflow-y-scroll'>
-      <ul className='list pa0 ma0 overflow-hidden card-progress-list'>
-        {playlist.map((i, k) => <PlaylistItem item={i} key={k} />)}
-      </ul>
-    </div>
-  )  
-}
+import React, { PropTypes } from 'react'
+import PlayButton from './PlayButton'
+import { Card } from './Card'
 ```
 
-## Creating the `PlaylistItem` Component
+With our imports in place, we can copy and paste the code for `CourseMeta`, `CourseHeader`, and `CourseCard` from `Card.js` into our new file. We also will add the `export` keyword to all three.
 
-We already know that our `PlaylistItem` has an `item` prop, and will return an `<li>`. There will be different classes applied to each item based on its "played" status. Let's start by setting that up.
-
-Looking at our example mockup in `StaticCards.js`, we can see the same set of classes used for every item, with additional classes added for already played items or the item that will be started. For easy access, we'll destructure the `watched` and `current` keys from the `item`, and then use ternary statements for each inside of a string template to fill out our `<li>`'s `classNames`:
+Now that we've exported our components, we need to adjust the places they are imported. 
+Inside of `Card.js`, we need to do a destructured import of `CourseMeta` and `CourseHeader`, and inside of `index.js`, we need to import `CourseCard`:
 
 ```javascript
-const PlaylistItem = ({item}) => {
-  const { watched, current } = item
-  const liClasses = 'flex items-start relative f6 lh-solid pointer pv3 pl4 pr3 gray hover-bg-white card-progress-list-item' 
-  const watchedClasses = 'viewed'
-  const currentClasses = 'next'
+// Card.js
+import { CourseMeta, CourseHeader } from './Course'
 
-  return (
-    <li className={`${liClasses} ${watched ? watchedClasses : null} ${current ? currentClasses : null}`}>
-    </li>
-  )
-}
+// index.js
+import { CourseCard } from './Course'
 ```
 
-The first child inside of our `<li>` is a `CategoryIcon`. This component will take in the image as a prop (that will be passed after being destructured inside of our `PlaylistItem`), and return a simple `<img />` tag with some class names applied:
+## Migrating `LessonCard`
+_These steps are exactly the same as above, but replace the word "Course" with "Lesson". For the sake of lowering cognitive overhead, I'll go ahead and do that below:_
+
+We'll start by creating a new file `Lesson.js` in our `src` directory. At the top of our file, we'll need to import React, our `PlayButton` component, and `Card`. 
 
 ```javascript
-const CategoryIcon = ({icon}) => {
-  return <img src={icon} className='ml2 mt1' alt='' />
-}
+import React, { PropTypes } from 'react'
+import PlayButton from './PlayButton'
+import { Card } from './Card'
 ```
 
-The last subcomponents are the `VideoTitle` and `VideoLength` displays, both of which are straight forward:
+With our imports in place, we can copy and paste the code for `LessonMeta`, `LessonHeader`, and `LessonCard` from `Card.js` into our new file. We also will add the `export` keyword to all three.
+
+Now that we've exported our components, we need to adjust the places they are imported. 
+Inside of `Card.js`, we need to do a destructured import of `LessonMeta` and `LessonHeader`, and inside of `index.js`, we need to import `LessonCard`:
 
 ```javascript
-const VideoLength = ({length}) => {
-  return <div className='w3 ml3 tr o-60'>{length}</div>
-}
+// Card.js
+import { LessonMeta, LessonHeader } from './Lesson'
 
-const VideoTitle = ({title}) => {
-  return (
-      <div className='truncate'>
-        {title}
-      </div>
-  )
-}
+// index.js
+import { LessonCard } from './Lesson'
 ```
 
-And adding our classes, we end up with our finished component:
+## Wrapping Up
+Now that we have added all three of our dynamic card components into our App's `index.js` file, we can delete the `StaticCard` examples and the `div`s that contain them. Upon saving the file, our App will reload, and we are left with cards that look strikingly similar to our source mockups!
 
-```javascript
-const PlaylistItem = ({item}) => {
-  const { watched, current, icon, title, length } = item
-  const liClasses = 'flex items-start relative f6 lh-solid pointer pv3 pl4 pr3 gray hover-bg-white card-progress-list-item' 
-  const textClasses = 'ml2 flex justify-between flex-grow-1 lh-copy overflow-hidden lesson-title'
-
-  const watchedClasses = 'viewed o-60'
-  const watchedTitleClasses = 'o-60'
-  const currentClasses = 'next'
-
-  return (
-    <li className={`${liClasses} ${watched ? watchedClasses : null} ${current ? currentClasses : null}`}>
-      <CategoryIcon icon={icon} />
-      <div className={`${textClasses} ${watched ? watchedTitleClasses : null}`}>
-        <VideoTitle title={title} />
-        <VideoLength length={length} />
-      </div>
-    </li>
-  )
-}
-```
-
-
-## Some Housekeeping
-Now we've completed all of our Playlist subcomponents, but for the time being we have half of our Playlist-related code in `Cards.js`, and half in `Playlist.js`. Let's do a little cleanup and refactoring.
-
-Start by moving `PlaylistCard`, `PlaylistMeta`, `PlaylistSummary`, and `PlaylistHeader` over into `Playlist.js`.
-
-We'll now need to add the `export` keyword to `PlaylistMeta` and `PlaylistHeader` so we can import them into `Card.js`:
-
-```javascript
-import { PlaylistCard, PlaylistMeta, PlaylistHeader } from './Playlist'
-```
-
-We also need to move our `PlaylistCard` import in our `index.js` file to be from `./Playlist` instead of `./Card`.
-
-## Finishing Up
-
-With all of our playlist-related code all in the same file, all that's left for now is to add our `Playlist` component into its place on the line below `<PlayButton />` in our `PlaylistHeader` component.
-
-```javascript
-export const PlaylistHeader = ({meta}) => {
-  const { timeRemaining, lessonsLeft } = meta
-  return (
-    <div>
-      <div className='relative w-100' style={{
-        height: '290px'
-      }}>
-        <PlayButton />
-        <Playlist playlist={meta.playlist} />
-      </div>
-      <PlaylistSummary timeRemaining={timeRemaining} lessonsLeft={lessonsLeft} />
-    </div>
-  )
-}
-```
-
-## Next Step
-Splitting the `CourseCard` and `LessonCard` components into their own files.

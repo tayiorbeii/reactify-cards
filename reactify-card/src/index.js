@@ -5,9 +5,9 @@ import 'tachyons-egghead'
 import imgCourseCard from './assets/img-course-card.png'
 import imgJs from './assets/js.svg'
 import imgRx from './assets/rx.svg'
-import { StaticCourseCard, StaticLessonCard, StaticPlaylistCard } from './StaticCards'
-import { CourseCard, LessonCard } from './Card'
 import { PlaylistCard } from './Playlist'
+import { CourseCard } from './Course'
+import { LessonCard } from './Lesson'
 
 const testData = {
   title: 'Introduction to RxJS Marble Testing Two lines headline',
@@ -85,15 +85,6 @@ ReactDOM.render(
     </div>
     <div className='mt5'>
       <PlaylistCard title={testData.title} author={testData.author} meta={testData.meta} />
-    </div>
-    <div className='mt5'>
-      <StaticCourseCard />
-    </div>
-    <div className='mt5'>
-      <StaticLessonCard />
-    </div>
-    <div className='mt5'>
-      <StaticPlaylistCard />
     </div>
   </div>,
   document.getElementById('root')
