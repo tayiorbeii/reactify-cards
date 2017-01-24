@@ -28,7 +28,7 @@ CourseHeader.propTypes = {
 }
 
 
-export const CourseCard = ({title, author, type, meta}) => {
+export const CourseCard = ({title, author, meta}) => {
   return (
     <Card title={title} author={author} type='course' meta={meta} />
   )
