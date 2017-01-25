@@ -4,4 +4,4 @@ This repository acts as a step-by-step in converting cards built in static HTML/
 
 This project is built with [`create-react-app`](https://github.com/facebookincubator/create-react-app), with a new branch for each part.
 
-To get started, clone the repo and follow along with the [ordered branches](https://github.com/tayiorbeii/reactify-cards/branches) (or read [all chapters](https://github.com/tayiorbeii/reactify-cards/blob/master/all_chapters.md)!
+To get started, clone the repo and follow along with the [ordered branches](https://github.com/tayiorbeii/reactify-cards/branches) (or read [all chapters](https://github.com/tayiorbeii/reactify-cards/blob/master/all_chapters.md))!
