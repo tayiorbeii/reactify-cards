@@ -9,7 +9,7 @@ We've cleaned up our code quite a bit by extracting repeatedly used classes into
 
 We know from our repeated `className`s that we have a base button with a variation applied to it. With that in mind, we will create a `<PlayButton />` component with a `hover` variant that will be activated via a prop passed into the component.
 
-In a new file called `PlayButton.js`, we will migrate over the appropriate lines of code from `StateCards.js`. Since our component will make use of props, we need to add `PropTypes` as a destructured import from React:
+In a new file called `PlayButton.js`, we will migrate over the appropriate lines of code from `StaticCards.js`. Since our component will make use of props, we need to add `PropTypes` as a destructured import from React:
 
 ```javascript
 import React, { PropTypes } from 'react'
